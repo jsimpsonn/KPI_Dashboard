@@ -9,7 +9,7 @@ st.set_page_config(
 )
 
 st.subheader('KPI Dashboard 📈')
-st.header('Mississippi Steel Processing Test',divider='blue')
+st.header('Mississippi Steel Processing',divider='blue')
 
 st.markdown(
     """
