@@ -21,6 +21,7 @@ df_shipping_sorted = df_shipping.sort_values(by='Date')
 shipping = px.line(df_shipping_sorted, x="Date", y="Percent", title="Shipping - % of Trucks Loaded in One Hour or Less")
 
 # Display the plot
+st.header("Shipping")
 st.plotly_chart(shipping)
 
 @st.cache_data

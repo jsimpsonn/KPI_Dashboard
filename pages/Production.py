@@ -5,8 +5,10 @@ import plotly.express as px
 # App Layout
 st.set_page_config(
     page_title="KPI | Production",
-        page_icon="assets/MSP_Favicon.png",
+    page_icon="assets/MSP_Favicon.png",
 )
+
+st.header("Production")
 
 # Read CSV files
 df_lifetime = pd.read_csv("data/production/lifetime.csv")

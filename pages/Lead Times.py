@@ -8,6 +8,8 @@ st.set_page_config(
     page_icon="assets/MSP_Favicon.png",
 )
 
+st.header("Lead Times")
+
 # Read the shipping data
 df_lead_times = pd.read_csv("data/LT.csv")
 
@@ -18,7 +20,7 @@ df_lead_times['Date'] = pd.to_datetime(df_lead_times['Date'], format='%m/%d/%Y')
 df_lead_times_sorted = df_lead_times.sort_values(by='Date')
 
 # Create the plot
-LT = px.line(df_lead_times_sorted, x="Date", y=["Stamco", "Braner", "Red Bud"], title="Lead Times")
+LT = px.line(df_lead_times_sorted, x="Date", y=["Stamco", "Braner", "Red Bud"])
 
 # Update x-axis label
 LT.update_yaxes(title_text="Days")

@@ -8,11 +8,11 @@ st.set_page_config(
     page_icon="assets/MSP_Favicon.png",
 )
 
-
 df_OTD = pd.read_csv("data/wo.csv")
 
-otd = px.line(df_OTD, x="Month", y="Percentage", title="Work Order OTD")
+otd = px.line(df_OTD, x="Month", y="Percentage")
 
+st.header("Work Order On-time Delivery")
 st.plotly_chart(otd)
 
 @st.cache_data

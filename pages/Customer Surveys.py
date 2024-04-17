@@ -5,7 +5,7 @@ import numpy as np
 st.set_page_config(page_title="KPI | Customer Surveys",page_icon="assets/MSP_Favicon.png", layout="wide", initial_sidebar_state="auto", menu_items=None)
 
 # Read the CSV data
-df_customer_surveys = pd.read_csv("data/customer surveys.csv")
+df_customer_surveys = pd.read_csv("data/surveys.csv")
 
 # Convert "Year" column to integers, remove decimals, and then to string
 df_customer_surveys["Year"] = df_customer_surveys["Year"].astype(int).astype(str)
