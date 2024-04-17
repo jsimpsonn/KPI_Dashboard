@@ -12,7 +12,7 @@ env/
 logs/
 output/
 
-data/customer surveys.csv
+# Ignore data files
 data/LT.csv
 data/shipping.csv
 data/wo.csv
