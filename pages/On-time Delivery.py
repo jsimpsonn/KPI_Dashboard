@@ -14,17 +14,3 @@ otd = px.line(df_OTD, x="Month", y="Percentage")
 
 st.header("Work Order On-time Delivery")
 st.plotly_chart(otd)
-
-@st.cache_data
-def convert_df(df_OTD):
-    # IMPORTANT: Cache the conversion to prevent computation on every rerun
-    return df_OTD.to_csv().encode('utf-8')
-
-csv = convert_df(df_OTD)
-
-st.download_button(
-    label="Download OTD data",
-    data=csv,
-    file_name='OTD.csv',
-    mime='text/csv',
-)

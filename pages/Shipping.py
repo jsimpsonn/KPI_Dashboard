@@ -23,17 +23,3 @@ shipping = px.line(df_shipping_sorted, x="Date", y="Percent", title="Shipping - 
 # Display the plot
 st.header("Shipping")
 st.plotly_chart(shipping)
-
-@st.cache_data
-def convert_df(df_shipping):
-    # IMPORTANT: Cache the conversion to prevent computation on every rerun
-    return df_shipping.to_csv().encode('utf-8')
-
-csv = convert_df(df_shipping)
-
-st.download_button(
-    label="Download loading times data",
-    data=csv,
-    file_name='Shipping.csv',
-    mime='text/csv',
-)

@@ -27,17 +27,3 @@ LT.update_yaxes(title_text="Days")
 
 # Display the plot
 st.plotly_chart(LT)
-
-@st.cache_data
-def convert_df(df_lead_times):
-    # IMPORTANT: Cache the conversion to prevent computation on every rerun
-    return df_lead_times.to_csv().encode('utf-8')
-
-csv = convert_df(df_lead_times)
-
-st.download_button(
-    label="Download lead times data",
-    data=csv,
-    file_name='Lead Times.csv',
-    mime='text/csv',
-)

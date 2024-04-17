@@ -30,19 +30,7 @@ braner_downtime.update_layout(yaxis_title="Hours",xaxis=dict(dtick="1"),xaxis_ti
 redbud_downtime.update_layout(yaxis_title="Hours",xaxis=dict(dtick="1"),xaxis_tickangle=45)
 
 st.plotly_chart(stamco_downtime)
-@st.cache_data
-def convert_df(df_stamco_downtime):
-    # IMPORTANT: Cache the conversion to prevent computation on every rerun
-    return df_stamco_downtime.to_csv().encode('utf-8')
 
-csv = convert_df(df_stamco_downtime)
-
-st.download_button(
-    label="Download stamco downtime data",
-    data=csv,
-    file_name='Stamco_Downtime.csv',
-    mime='text/csv',
-)
 st.write("")
 st.write("")
 st.write("")
@@ -53,19 +41,7 @@ st.write("")
 st.write("")
 
 st.plotly_chart(braner_downtime)
-@st.cache_data
-def convert_df(df_braner_downtime):
-    # IMPORTANT: Cache the conversion to prevent computation on every rerun
-    return df_braner_downtime.to_csv().encode('utf-8')
 
-csv = convert_df(df_braner_downtime)
-
-st.download_button(
-    label="Download braner downtime data",
-    data=csv,
-    file_name='Braner_Downtime.csv',
-    mime='text/csv',
-)
 st.write("")
 st.write("")
 st.write("")
@@ -76,16 +52,3 @@ st.write("")
 st.write("")
 
 st.plotly_chart(redbud_downtime)
-@st.cache_data
-def convert_df(df_redbud_downtime):
-    # IMPORTANT: Cache the conversion to prevent computation on every rerun
-    return df_redbud_downtime.to_csv().encode('utf-8')
-
-csv = convert_df(df_redbud_downtime)
-
-st.download_button(
-    label="Download redbud downtime data",
-    data=csv,
-    file_name='Redbud_Downtime.csv',
-    mime='text/csv',
-)

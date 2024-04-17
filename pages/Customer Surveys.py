@@ -17,19 +17,6 @@ st.header("Customer Surveys")
 st.caption('The form for customers to fill out can be found and shared from [here](https://forms.office.com/r/dvnMP3f8DM)')
 st.dataframe(df_customer_surveys, use_container_width=True)
 
-@st.cache_data
-def convert_df(df_stamco_downtime):
-    # IMPORTANT: Cache the conversion to prevent computation on every rerun
-    return df_stamco_downtime.to_csv().encode('utf-8')
-
-csv = convert_df(df_customer_surveys)
-
-st.download_button(
-    label="Download customer surveys data",
-    data=csv,
-    file_name='Customer_Surveys.csv',
-    mime='text/csv',
-)
 st.write("")
 st.write("")
 st.write("")
