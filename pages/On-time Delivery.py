@@ -5,11 +5,11 @@ import plotly.express as px
 # App Layout
 st.set_page_config(
     page_title="KPI Dashboard • OTD",
-        page_icon="assets/MSP_Favicon.png",
+    page_icon="assets/MSP_Favicon.png",
 )
 
 
-df_OTD = pd.read_csv("data/OTD/wo.csv")
+df_OTD = pd.read_csv("data/wo.csv")
 
 otd = px.line(df_OTD, x="Month", y="Percentage", title="Work Order OTD")
 

@@ -17,4 +17,12 @@ st.markdown(
     """
     )
 
+st.write("")
+st.write("")
+st.write("")
+st.write("")
+st.write("")
+st.write("")
+st.caption("Values in this dashboard are managaged manually and do not currently offer realtime information.")
+
 st.sidebar.success("Select a KPI above.")

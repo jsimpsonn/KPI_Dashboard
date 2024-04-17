@@ -1,0 +1,13 @@
+# Ignore virtual environment
+env/
+
+# Ignore Streamlit cache
+.streamlit/cache/
+
+# Ignore IDE or editor-specific files
+.idea/
+.vscode/
+
+# Ignore generated files
+logs/
+output/

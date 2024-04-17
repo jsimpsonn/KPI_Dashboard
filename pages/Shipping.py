@@ -9,7 +9,7 @@ st.set_page_config(
 )
 
 # Read the shipping data
-df_shipping = pd.read_csv("data/shipping/shipping.csv")
+df_shipping = pd.read_csv("data/shipping.csv")
 
 # Convert the 'Date' column to datetime if it's not already
 df_shipping['Date'] = pd.to_datetime(df_shipping['Date'], format='%m/%d/%Y')
