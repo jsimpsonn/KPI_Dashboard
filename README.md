@@ -27,7 +27,7 @@
 <ol>
     <li>Clone the repository to your local machine.</li>
     <li>Install the required dependencies using <code>pip install -r requirements.txt</code>.</li>
-    <li>Navigate to the project directory and run <code>streamlit run app.py</code> in your terminal.</li>
+    <li>Navigate to the project directory and run <code>streamlit run Home.py</code> in your terminal.</li>
     <li>Access the Streamlit dashboard in your web browser at <a href="http://localhost:8501">http://localhost:8501</a>.</li>
 </ol>
 
