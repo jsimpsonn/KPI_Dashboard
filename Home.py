@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from streamlit_extras.app_logo import add_logo
 
 # App Layout
 st.set_page_config(
