@@ -13,6 +13,7 @@ logs/
 output/
 
 # Ignore data files
+data/surveys.csv
 data/LT.csv
 data/shipping.csv
 data/wo.csv
