@@ -12,4 +12,14 @@ env/
 logs/
 output/
 
-data/
+data/customer surveys.csv
+data/LT.csv
+data/shipping.csv
+data/wo.csv
+data/production/braner.csv
+data/production/lifetime.csv
+data/production/redbud.csv
+data/production/stamco.csv
+data/downtime/braner.csv
+data/downtime/redbud.csv
+data/downtime/stamco.csv
