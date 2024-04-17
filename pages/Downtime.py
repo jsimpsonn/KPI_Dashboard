@@ -4,8 +4,8 @@ import plotly.express as px
 
 # App Layout
 st.set_page_config(
-    page_title="KPI Dashboard • Downtime",
-        page_icon="assets/MSP_Favicon.png",
+    page_title="KPI | Downtime",
+    page_icon="assets/MSP_Favicon.png",
 )
 
 df_stamco_downtime = pd.read_csv("data/downtime/stamco.csv")

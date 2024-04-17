@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
+st.set_page_config(page_title="KPI | Customer Surveys",page_icon="assets/MSP_Favicon.png", layout="wide", initial_sidebar_state="auto", menu_items=None)
+
 # Read the CSV data
 df_customer_surveys = pd.read_csv("data/customer surveys.csv")
 
@@ -33,11 +35,8 @@ st.write("")
 st.write("")
 st.write("")
 st.write("")
-st.write("")
-st.write("")
-st.write("")
 
 average_ratings = df_customer_surveys[["On Time Performance", "Quality of Processing", "Pricing", "Customer Service", "Overall Satisfaction"]].mean()
 
 # Create a DataFrame for the average performance
-st.bar_chart(average_ratings)
+st.bar_chart(average_ratings,use_container_width=False, width=300)
