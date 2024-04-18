@@ -13,7 +13,7 @@ df_customer_surveys["Year"] = df_customer_surveys["Year"].astype(int).astype(str
 # Remove commas from the "Year" column
 df_customer_surveys["Year"] = df_customer_surveys["Year"].str.replace(",", "")
 
-st.header("Customer Surveys")
+st.title("Customer Surveys")
 st.caption('The form for customers to fill out can be found and shared from [here](https://forms.office.com/r/dvnMP3f8DM)')
 st.dataframe(df_customer_surveys, use_container_width=True)
 

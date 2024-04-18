@@ -8,7 +8,7 @@ st.set_page_config(
     page_icon="assets/MSP_Favicon.png",
 )
 
-st.header("Downtime")
+st.title("Downtime")
 
 df_stamco_downtime = pd.read_csv("data/downtime/stamco.csv")
 df_braner_downtime = pd.read_csv("data/downtime/braner.csv")

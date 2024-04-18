@@ -8,7 +8,7 @@ st.set_page_config(
     page_icon="assets/MSP_Favicon.png",
 )
 
-st.header("Production")
+st.title("Production")
 
 # Read CSV files
 df_lifetime = pd.read_csv("data/production/lifetime.csv")
