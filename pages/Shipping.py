@@ -62,8 +62,7 @@ df['Date'] = df['Date'].dt.strftime('%B %Y')
 
 # Plotly line chart
 fig = px.line(df, x="Date", y="Percent", title="Trucks Loaded in One Hour or Less")
-fig.update_layout(xaxis=dict(dtick="4"),xaxis_tickangle=45)
-
+fig.update_layout(xaxis=dict(dtick="3"),xaxis_tickangle=45)
 st.plotly_chart(fig)
 
 st.subheader("Data")
