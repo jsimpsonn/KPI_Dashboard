@@ -30,6 +30,3 @@
     <li>Navigate to the project directory and run <code>streamlit run Home.py</code> in your terminal.</li>
     <li>Access the Streamlit dashboard in your web browser at <a href="http://localhost:8501">http://localhost:8501</a>.</li>
 </ol>
-
-<h3>Contributors</h3>
-<p>John Simpson (Assistant Director of Quality Assurance, Mississippi Steel Processing)</p>
