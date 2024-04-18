@@ -4,7 +4,7 @@ import plotly.express as px
 
 # App Layout
 st.set_page_config(
-    page_title="KPI | Production",
+    page_title="KPI • Production",
     page_icon="assets/MSP_Favicon.png",
 )
 

@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-st.set_page_config(page_title="KPI | Safety",page_icon="assets/MSP_Favicon.png", layout="wide", initial_sidebar_state="auto", menu_items=None)
+st.set_page_config(page_title="KPI • Safety",page_icon="assets/MSP_Favicon.png", layout="wide", initial_sidebar_state="auto", menu_items=None)
 
 # Read the CSV file
 df_safety = pd.read_csv("data/safety.csv")

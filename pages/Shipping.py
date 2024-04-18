@@ -5,6 +5,12 @@ import pandas as pd
 import plotly.express as px
 import toml
 
+# App Layout
+st.set_page_config(
+    page_title="KPI • Shipping",
+    page_icon="assets/MSP_Favicon.png",
+)
+
 st.title("Shipping")
 st.subheader("Summary")
 
