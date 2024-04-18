@@ -3,19 +3,17 @@ from office365.sharepoint.client_context import ClientContext
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import toml
 
 st.title("Shipping")
 st.subheader("Summary")
-
-# Read the shipping data
-df_shipping = pd.read_csv("data/shipping.csv")
 
 # Read SharePoint credentials
 sharepoint_secrets = st.secrets["sharepoint"]
 client_id = sharepoint_secrets["client_id"]
 client_secret = sharepoint_secrets["client_secret"]
-subsite_url = sharepoint_secrets["subsite_url"]
-list_name = sharepoint_secrets["list_name"]
+subsite_url = sharepoint_secrets["plant_operations_subsite_url"]
+list_name = sharepoint_secrets["loading_times_list_name"]
 
 # Authenticate with SharePoint
 context_auth = AuthenticationContext(url=subsite_url)  # Use subsite URL for authentication

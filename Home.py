@@ -23,6 +23,6 @@ st.write("")
 st.write("")
 st.write("")
 st.write("")
-st.caption("Values in this dashboard are managaged manually and do not currently offer realtime information.")
+st.caption("Values in this dashboard are managaged through SharePoint data and do not currently offer realtime information. However, if SharePoint values are updated, the dashboard will reflect those changes.")
 
 st.sidebar.success("Select a KPI above.")
