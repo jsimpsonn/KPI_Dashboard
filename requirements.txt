@@ -2,6 +2,5 @@ streamlit
 pandas
 numpy
 plotly
-msal
 office365-REST-Python-Client
 streamlit_shadcn_ui
