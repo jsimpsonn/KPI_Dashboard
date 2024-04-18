@@ -3,7 +3,6 @@ from office365.sharepoint.client_context import ClientContext
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-import toml
 
 # App Layout
 st.set_page_config(
