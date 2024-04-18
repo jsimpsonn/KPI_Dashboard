@@ -23,6 +23,6 @@ st.write("")
 st.write("")
 st.write("")
 st.write("")
-st.caption("Values in this dashboard are managaged through SharePoint data and do not currently offer realtime information. However, if SharePoint values are updated, the dashboard will reflect those changes.")
+st.caption("Values in this dashboard are managed through a combination of CSV files and SharePoint data. While some data is still sourced from CSV files, efforts are underway to migrate all data retrieval to SharePoint. Please note that the information provided here may not be real-time. However, any updates made to the SharePoint data will be reflected in the dashboard.")
 
 st.sidebar.success("Select a KPI above.")

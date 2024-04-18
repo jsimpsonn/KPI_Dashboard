@@ -8,7 +8,7 @@ import toml
 
 st.set_page_config(page_title="KPI • Lead Times",page_icon="assets/MSP_Favicon.png", layout="wide", initial_sidebar_state="auto", menu_items=None)
 
-st.header("Lead Times")
+st.Tile("Lead Times")
 
 # Read SharePoint credentials
 sharepoint_secrets = st.secrets["sharepoint"]
