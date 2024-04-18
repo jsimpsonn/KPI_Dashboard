@@ -37,13 +37,17 @@ def get_sharepoint_list_items():
 # Get SharePoint list items
 items = get_sharepoint_list_items()
 
+# Function to format decimal to percentage
+def format_percentage(decimal):
+    return f"{decimal * 100:.0f}%"
+
 # Extract item properties
 data = []
 for item in items:
     item_data = {
         "Date": item.properties.get("Date"),
-        "Percent": item.properties.get("OData__x0025_"),  # Using OData__x0025_ for Actual
-        "Goal": item.properties.get("Goal"),
+        "Percent": format_percentage(item.properties.get("OData__x0025_")),
+        "Goal": format_percentage(item.properties.get("Goal")),
         "No. of Trucks": item.properties.get("Trucks")
     }
     data.append(item_data)
