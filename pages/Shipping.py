@@ -11,10 +11,11 @@ def read_secrets():
         secrets = toml.load(f)
     return secrets["sharepoint"]
 
-# Streamlit app (continuation)
-def main():
-    st.title("Shipping")
-    st.subheader("Summary")
+st.title("Shipping")
+st.subheader("Summary")
+
+# Read the shipping data
+df_shipping = pd.read_csv("data/shipping.csv")
 
     # Read SharePoint credentials
     sharepoint_secrets = read_secrets()
