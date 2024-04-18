@@ -3,13 +3,6 @@ from office365.sharepoint.client_context import ClientContext
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-import toml
-
-# Read SharePoint credentials from secrets.toml
-def read_secrets():
-    with open("secrets.toml", "r") as f:
-        secrets = toml.load(f)
-    return secrets["sharepoint"]
 
 st.title("Shipping")
 st.subheader("Summary")
@@ -18,7 +11,7 @@ st.subheader("Summary")
 df_shipping = pd.read_csv("data/shipping.csv")
 
 # Read SharePoint credentials
-sharepoint_secrets = read_secrets()
+sharepoint_secrets = st.secrets["sharepoint"]
 client_id = sharepoint_secrets["client_id"]
 client_secret = sharepoint_secrets["client_secret"]
 subsite_url = sharepoint_secrets["subsite_url"]
