@@ -1,5 +1,3 @@
-from office365.runtime.auth.authentication_context import AuthenticationContext
-from office365.sharepoint.client_context import ClientContext
 from sharepoint_manager import get_sharepoint_list_items, sharepoint_urls, sharepoint_lists, read_secrets
 import streamlit as st
 import pandas as pd

@@ -1,8 +1,8 @@
+from sharepoint_manager import get_sharepoint_list_items, sharepoint_urls, sharepoint_lists
+from sharepoint_manager import read_secrets
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from sharepoint_manager import get_sharepoint_list_items, sharepoint_urls, sharepoint_lists
-from sharepoint_manager import read_secrets
 
 # App Layout
 st.set_page_config(
