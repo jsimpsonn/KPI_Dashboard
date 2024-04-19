@@ -46,5 +46,4 @@ sharepoint_lists = {
     "Lead Times": sharepoint_secrets["lead_times_list_name"],
     "Customer Surveys": sharepoint_secrets["customer_surveys_list_name"],
     "Work Order On-time Delivery": sharepoint_secrets["otd_list_name"],
-    "Scrap Pricing": sharepoint_secrets["scrap_pricing_list_name"]
 }
