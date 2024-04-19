@@ -14,4 +14,4 @@ output/
 
 # Other
 __pycache__
-secrets.toml
+.streamlit/secrets.toml

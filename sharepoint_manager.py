@@ -1,5 +1,6 @@
 from office365.runtime.auth.authentication_context import AuthenticationContext
 from office365.sharepoint.client_context import ClientContext
+import streamlit as st
 from secrets_manager import read_secrets
 
 def authenticate_sharepoint(subsite_url):
@@ -25,6 +26,16 @@ def get_sharepoint_list_items(subsite_url, list_name):
     ctx.execute_query()
     
     return items
+
+def read_secrets():
+    if st._is_running_with_streamlit:
+        # Running on Streamlit Sharing
+        return st.secrets["sharepoint"]
+    else:
+        # Running locally
+        streamlit_home = os.environ.get("STREAMLIT_HOME", "")
+        secrets_path = os.path.join(streamlit_home, ".streamlit", "secrets.toml")
+        return toml.load(secrets_path)["sharepoint"]
 
 sharepoint_secrets = read_secrets()
 sharepoint_urls = {

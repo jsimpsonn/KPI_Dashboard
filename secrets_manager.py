@@ -1,15 +1,13 @@
 import os
-import streamlit as st
 import toml
+import streamlit as st
 
 def read_secrets():
-    if os.getenv("STREAMLIT_PRODUCTION") == "true":
+    if st._is_running_with_streamlit:
         # Running on Streamlit Sharing
         return st.secrets["sharepoint"]
     else:
         # Running locally
-        try:
-            return toml.load("secrets.toml")["sharepoint"]
-        except FileNotFoundError:
-            st.error("Secrets file not found. Please make sure you have a 'secrets.toml' file in your project directory.")
-            return {}
+        streamlit_home = os.environ.get("STREAMLIT_HOME", "")
+        secrets_path = os.path.join(streamlit_home, ".streamlit", "secrets.toml")
+        return toml.load(secrets_path)["sharepoint"]
