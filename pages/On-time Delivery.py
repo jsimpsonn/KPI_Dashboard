@@ -1,5 +1,7 @@
 from office365.runtime.auth.authentication_context import AuthenticationContext
 from office365.sharepoint.client_context import ClientContext
+from sharepoint_manager import get_sharepoint_list_items, sharepoint_urls, sharepoint_lists
+from sharepoint_manager import read_secrets
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -13,42 +15,27 @@ st.set_page_config(
 st.title("Work Order On-time Delivery")
 st.subheader("Summary")
 
-# Read SharePoint credentials
-sharepoint_secrets = st.secrets["sharepoint"]
+# Get SharePoint URLs and Lists
+url = sharepoint_urls["Customer Satisfaction"]
+list_name = sharepoint_lists["Work Order On-time Delivery"]
+
+# Get SharePoint secrets
+sharepoint_secrets = read_secrets()
 client_id = sharepoint_secrets["client_id"]
 client_secret = sharepoint_secrets["client_secret"]
-subsite_url = sharepoint_secrets["customer_satisfaction_subsite_url"]
-list_name = sharepoint_secrets["otd_list_name"]
 
-# Authenticate with SharePoint
-context_auth = AuthenticationContext(url=subsite_url)  # Use subsite URL for authentication
-context_auth.acquire_token_for_app(client_id, client_secret)
-ctx = ClientContext(subsite_url, context_auth)
+# Access SharePoint list items
+items = get_sharepoint_list_items(url, list_name, client_id, client_secret)
 
-# Access SharePoint list items with paging
-def get_sharepoint_list_items(ctx, list_name):
-    try:
-        sp_lists = ctx.web.lists
-        s_list = sp_lists.get_by_title(list_name)
-        list_items = s_list.items.paged(500).get().execute_query()
-        return list_items
-    except Exception as e:
-        st.error(f"Error retrieving list items: {e}")
-        return None
-
-if ctx:
-    # Get SharePoint list items with paging
-    items = get_sharepoint_list_items(ctx, list_name)
-
-    if items:
-        # Extract item properties
-        data = []
-        for item in items:
-            item_data = {
-                "Date": item.properties.get("Date"),
-                "Percent": item.properties.get("Percent") * 100  # Convert decimal to percentage
-            }
-            data.append(item_data)
+if items:
+    # Extract item properties
+    data = []
+    for item in items:
+        item_data = {
+            "Date": item.properties.get("Date"),
+            "Percent": item.properties.get("Percent") * 100  # Convert decimal to percentage
+        }
+        data.append(item_data)
 
 # Convert to DataFrame
 df_OTD = pd.DataFrame(data)
