@@ -15,4 +15,3 @@ output/
 # Other
 __pycache__
 secrets.toml
-secrets_manager.py
