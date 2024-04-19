@@ -4,3 +4,4 @@ numpy
 plotly
 office365-REST-Python-Client
 streamlit_shadcn_ui
+secrets_manager
