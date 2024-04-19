@@ -10,13 +10,10 @@
     <li><strong>Downloadable Data:</strong> Provides options for users to download raw data files for further analysis.</li>
 </ul>
 <h3>Data Sources</h3>
-<p>The project utilizes data from various sources, including CSV files containing production metrics, shipping records, work order information, and customer survey responses. Additionally, it interacts with the Office 365 SharePoint REST API to access real-time data.</p>
-<h3>Dependencies</h3>
+<p>The project utilizes data from various sources, including:</p>
 <ul>
-    <li>Streamlit: The main framework for building the web application.</li>
-    <li>Pandas: Used for data manipulation and analysis.</li>
-    <li>Plotly: Utilized for creating interactive visualizations.</li>
-    <li>Other standard Python libraries for data processing and visualization.</li>
+    <li><strong>Office 365 SharePoint REST API:</strong> Integrates with SharePoint to access live data on production metrics, shipping records, work orders, and customer survey responses.</li>
+    <li><strong>CSV Files:</strong> Additional data sources include CSV files containing production metrics, shipping records, work order information, and customer survey responses.</li>
 </ul>
 <h3>Usage</h3>
 <p>To run the Streamlit application locally, follow these steps:</p>
