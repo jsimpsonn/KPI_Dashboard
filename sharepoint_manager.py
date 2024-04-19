@@ -39,7 +39,6 @@ sharepoint_urls = {
     "Plant Operations": sharepoint_secrets["plant_operations_subsite_url"],
     "Customer Satisfaction": sharepoint_secrets["customer_satisfaction_subsite_url"],
     "Order Entry & Receiving": sharepoint_secrets["order_entry_subsite_url"],
-    "Safety": sharepoint_secrets["safety_subsite_url"]
 }
 
 sharepoint_lists = {
@@ -47,7 +46,5 @@ sharepoint_lists = {
     "Lead Times": sharepoint_secrets["lead_times_list_name"],
     "Customer Surveys": sharepoint_secrets["customer_surveys_list_name"],
     "Work Order On-time Delivery": sharepoint_secrets["otd_list_name"],
-    "Safety Corrective Actions": sharepoint_secrets["safety_2023_list_name"],
-    "2024 Safety OFI's": sharepoint_secrets["safety_2024_list_name"],
     "Scrap Pricing": sharepoint_secrets["scrap_pricing_list_name"]
 }
