@@ -2,12 +2,19 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 from sharepoint_manager import get_sharepoint_list_items, sharepoint_urls, sharepoint_lists
+from sharepoint_manager import read_secrets
 
+# Get SharePoint URLs and Lists
 url = sharepoint_urls["Plant Operations"]
 list_name = sharepoint_lists["Loading Times"]
 
+# Get SharePoint secrets
+sharepoint_secrets = read_secrets()
+client_id = sharepoint_secrets["client_id"]
+client_secret = sharepoint_secrets["client_secret"]
+
 # Access SharePoint list items
-items = get_sharepoint_list_items(url, list_name)
+items = get_sharepoint_list_items(url, list_name, client_id, client_secret)
 
 # Function to format decimal to percentage
 def format_percentage(decimal):
