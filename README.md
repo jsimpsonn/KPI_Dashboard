@@ -36,5 +36,4 @@ customer_surveys_list_name = "YOUR_CUSTOMER_SURVEYS_LIST_NAME"
 otd_list_name = "YOUR_OTD_LIST_NAME"
 </code></pre>
     <li>Navigate to the project directory and run <code>streamlit run Home.py</code> in your terminal.</li>
-    <li>Access the Streamlit dashboard in your web browser at <a href="http://localhost:8501">http://localhost:8501</a>.</li>
 </ol>
