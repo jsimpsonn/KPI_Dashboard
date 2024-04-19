@@ -13,3 +13,4 @@ logs/
 output/
 
 secrets.toml
+.env
