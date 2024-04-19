@@ -23,10 +23,13 @@ def authenticate_sharepoint(subsite_url, client_id, client_secret):
 def get_sharepoint_list_items(subsite_url, list_name, client_id, client_secret):
     ctx = authenticate_sharepoint(subsite_url, client_id, client_secret)
     list_obj = ctx.web.lists.get_by_title(list_name)
-    items = list_obj.items
-    ctx.load(items)
-    ctx.execute_query()
-    return items
+    try:
+        # Retrieve list items with paging
+        list_items = list_obj.items.top(500).get().execute_query()
+        return list_items
+    except Exception as e:
+        st.error(f"Error retrieving list items: {e}")
+        return None
 
 # Read SharePoint credentials from TOML file
 sharepoint_secrets = read_secrets()
