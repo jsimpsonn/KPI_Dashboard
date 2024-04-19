@@ -1,3 +1,4 @@
+
 <h2>Streamlit Project Summary</h2>
 <h3>Description</h3>
 <p>This Streamlit project is a dashboard for visualizing data related to Mississippi Steel Processing's quality management system. It provides insights into various aspects of steel production, including lead times, shipping, on-time delivery, production metrics, downtime analysis, and customer surveys.</p>
@@ -27,14 +28,12 @@
     <pre><code>[sharepoint]
 client_id = "YOUR_CLIENT_ID"
 client_secret = "YOUR_CLIENT_SECRET"
+main_site_url = "YOUR_HOME_SITE_URL
 plant_operations_subsite_url = "YOUR_SUBSITE_URL"
 loading_times_list_name = "YOUR_LOADING_TIMES_LIST_NAME"
 lead_times_list_name = "YOUR_LEAD_TIMES_LIST_NAME"
 customer_surveys_list_name = "YOUR_CUSTOMER_SURVEYS_LIST_NAME"
 otd_list_name = "YOUR_OTD_LIST_NAME"
-safety_2023_list_name = "YOUR_SAFETY_2023_LIST_NAME"
-safety_2024_list_name = "YOUR_SAFETY_2024_LIST_NAME"
-scrap_pricing_list_name = "YOUR_SCRAP_PRICING_LIST_NAME"
 </code></pre>
     <li>Navigate to the project directory and run <code>streamlit run Home.py</code> in your terminal.</li>
     <li>Access the Streamlit dashboard in your web browser at <a href="http://localhost:8501">http://localhost:8501</a>.</li>
