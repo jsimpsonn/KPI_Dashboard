@@ -12,8 +12,8 @@
 <h3>Data Sources</h3>
 <p>The project utilizes data from various sources, including:</p>
 <ul>
-    <li><strong>Office 365 SharePoint REST API:</strong> Integrates with SharePoint to access live data on production metrics, shipping records, work orders, and customer survey responses.</li>
-    <li><strong>CSV Files:</strong> Additional data sources include CSV files containing production metrics, shipping records, work order information, and customer survey responses.</li>
+    <li><strong>Office 365 SharePoint REST API:</strong> Integrates with SharePoint to access live data on lead times, shipping, work order on-time delivery, and customer survey responses.</li>
+    <li><strong>CSV Files:</strong> Additional data sources include CSV files containing production metrics, downtime, and safety incidents.</li>
 </ul>
 <h3>Usage</h3>
 <p>To run the Streamlit application locally, follow these steps:</p>
