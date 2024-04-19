@@ -12,5 +12,7 @@ env/
 logs/
 output/
 
+# Other
+__pycache__
 secrets.toml
-.env
+secrets_manager.py
