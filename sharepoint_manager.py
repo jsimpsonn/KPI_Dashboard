@@ -4,7 +4,7 @@ import toml
 from office365.runtime.auth.authentication_context import AuthenticationContext
 from office365.sharepoint.client_context import ClientContext
 
-st.cache()
+st.cache_resource()
 def read_secrets():
     # Get the path to the secrets TOML file
     streamlit_home = os.environ.get("STREAMLIT_HOME", "")
@@ -14,7 +14,6 @@ def read_secrets():
     sharepoint_credentials = toml.load(secrets_path)["sharepoint"]
     return sharepoint_credentials
 
-st.cache()
 def authenticate_sharepoint(subsite_url, client_id, client_secret):
     # Authenticate with SharePoint
     context_auth = AuthenticationContext(url=subsite_url)
