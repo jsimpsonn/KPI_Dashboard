@@ -67,5 +67,18 @@ if items:
 
     st.subheader("Data")
 
-    # Display DataFrame with mm/dd/yyyy format for the date column
+tabAll, tab2023, tab2024 = st.tabs(["All", "2023", "2024"])
+df_2023 = df_display[df_display["Date"].str.endswith("2023")]
+df_2024 = df_display[df_display["Date"].str.endswith("2024")]
+
+# Sort DataFrame by 'Date' column from newest to oldest
+df_display = df_display.sort_values(by='Date', ascending=False)
+df_2023 = df_2023.sort_values(by='Date', ascending=False)
+df_2024 = df_2024.sort_values(by='Date', ascending=False)
+
+with tabAll:
     st.dataframe(df_display, use_container_width=True)
+with tab2023:
+    st.dataframe(df_2023, use_container_width=True)
+with tab2024:
+    st.dataframe(df_2024, use_container_width=True)
