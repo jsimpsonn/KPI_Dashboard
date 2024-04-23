@@ -1,5 +1,5 @@
 from sharepoint_manager import get_sharepoint_list_items, sharepoint_urls, sharepoint_lists
-from sharepoint_manager import read_secrets
+from sharepoint_manager import read_secrets, authenticate_user
 import streamlit as st
 import pandas as pd
 import plotly.express as px

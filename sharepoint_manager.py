@@ -1,8 +1,9 @@
-import os
 import streamlit as st
-import toml
+from msal import ConfidentialClientApplication
 from office365.runtime.auth.authentication_context import AuthenticationContext
 from office365.sharepoint.client_context import ClientContext
+import toml
+import os
 
 st.cache_resource()
 def read_secrets():
@@ -51,3 +52,25 @@ sharepoint_lists = {
     "Customer Surveys": sharepoint_secrets["customer_surveys_list_name"],
     "Work Order On-time Delivery": sharepoint_secrets["otd_list_name"],
 }
+
+def authenticate_user():
+    app = ConfidentialClientApplication(
+        st.secrets["azure"]["client_id"],
+        authority=f'https://login.microsoftonline.com/{st.secrets["azure"]["tenant_id"]}',
+        client_credential=st.secrets["azure"]["client_secret"],
+    )
+    # Attempt to acquire a token using client credentials
+    token_response = app.acquire_token_for_client(scopes=["https://graph.microsoft.com/.default"])
+    
+    if "access_token" in token_response:
+        print("Authentication successful. Access token obtained.")
+        return token_response['access_token']
+    else:
+        # Log any errors encountered during the authentication process
+        if "error" in token_response:
+            print(f"Authentication failed: {token_response['error_description']}")
+        else:
+            print("Authentication failed. No access token returned.")
+        return None
+
+access_token = authenticate_user()
