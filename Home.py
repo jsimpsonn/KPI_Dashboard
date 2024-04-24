@@ -1,6 +1,9 @@
 import streamlit as st
 from sharepoint_manager import authenticate_user
 
+st.set_page_config(page_title="MSP KPI Dashboard", page_icon="assets/MSP_Favicon.png")
+
+
 # Check if the user is already authenticated
 if 'authenticated' not in st.session_state or not st.session_state['authenticated']:
     access_token = authenticate_user()
@@ -13,7 +16,6 @@ if 'authenticated' not in st.session_state or not st.session_state['authenticate
 
 if st.session_state['authenticated']:
     # App Layout
-    st.set_page_config(page_title="MSP KPI Dashboard", page_icon="assets/MSP_Favicon.png")
 
     st.subheader('KPI Dashboard 📈')
     st.header('Mississippi Steel Processing', divider='blue')

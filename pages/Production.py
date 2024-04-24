@@ -3,6 +3,12 @@ import pandas as pd
 import plotly.express as px
 from sharepoint_manager import authenticate_user
 
+# App Layout
+st.set_page_config(
+    page_title="KPI • Production",
+    page_icon="assets/MSP_Favicon.png",
+)
+
 # Check if the user is already authenticated
 if 'authenticated' not in st.session_state or not st.session_state['authenticated']:
     access_token = authenticate_user()
@@ -14,12 +20,6 @@ if 'authenticated' not in st.session_state or not st.session_state['authenticate
         st.stop()  # Stop the app if not authenticated
 
 if st.session_state['authenticated']:
-    # App Layout
-    st.set_page_config(
-        page_title="KPI • Production",
-        page_icon="assets/MSP_Favicon.png",
-    )
-
     st.title("Production")
 
     # Read CSV files
@@ -139,3 +139,4 @@ if st.session_state['authenticated']:
     st.write("")
     st.write("")
     st.write("")
+
