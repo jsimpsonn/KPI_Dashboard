@@ -45,6 +45,7 @@ if st.session_state['authenticated']:
             })
             df_lead_times['Date'] = pd.to_datetime(df_lead_times['Date']).dt.strftime('%m/%d/%Y')
             lead_times_chart = px.line(df_lead_times, x="Date", y=["Braner", "Stamco", "Red Bud"], labels={"value": "Lead Time (days)"})
+            lead_times_chart.update_layout(xaxis=dict(dtick="14"),xaxis_tickangle=45)
             st.plotly_chart(lead_times_chart, use_container_width=True)
 
 
