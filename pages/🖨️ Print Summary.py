@@ -26,9 +26,11 @@ if st.session_state['authenticated']:
         body {
             -webkit-print-color-adjust: exact;
             margin-left: -50px;
+            padding-top: 45px;
+            padding-left: 55px;
         }
         .reportview-container .main .block-container {
-            max-width: 95vw;
+            max-width: 100%;
             padding-right: 10px;
             padding-left: 10px;
         }
@@ -38,6 +40,18 @@ if st.session_state['authenticated']:
         }
         .stChart, .stDataFrame, .stTable {
             width: 100% !important;
+        }
+        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(2), #root > div:nth-child(1) > div.withScreencast > div > div > div > section.st-emotion-cache-vk3wp9.eczjsme11 {
+        display: none;
+        }
+        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(4), #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(5), #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(6) {
+        padding-top: 50px;
+        }
+        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(6) {
+        padding-top: 30px;
+        }
+        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 {
+        padding-bottom: 100px;
         }
     }
     </style>
