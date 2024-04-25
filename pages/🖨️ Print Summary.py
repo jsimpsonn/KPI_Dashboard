@@ -5,7 +5,7 @@ import plotly.express as px
 import pandas as pd
 import streamlit_shadcn_ui as ui
 
-st.set_page_config(page_title="Print",layout="wide")
+st.set_page_config(page_title="Print",layout="wide", page_icon="assets/MSP_Favicon.png")
 
 # Check if the user is already authenticated
 if 'authenticated' not in st.session_state or not st.session_state['authenticated']:
