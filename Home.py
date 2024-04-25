@@ -27,4 +27,4 @@ if st.session_state['authenticated']:
     st.caption("Values in this dashboard are managed through a combination of CSV files and SharePoint data. While some data is still sourced from CSV files, efforts are underway to migrate all data retrieval to SharePoint. Please note that the information provided here may not be real-time. However, any updates made to the SharePoint data will be reflected in the dashboard.")
 
     st.sidebar.success("Select a KPI above.")
-    st.toast("Authentication successful.   :white_check_mark:")
+    st.toast("Authorization successful.   :white_check_mark:")
