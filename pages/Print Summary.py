@@ -19,6 +19,31 @@ if 'authenticated' not in st.session_state or not st.session_state['authenticate
 
 if st.session_state['authenticated']:
 # Setting up headers and global containers
+    st.markdown(
+    """
+    <style>
+    @media print {
+        body {
+            -webkit-print-color-adjust: exact;
+            margin-left: -50px;
+        }
+        .reportview-container .main .block-container {
+            max-width: 95vw;
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+        .element-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .stChart, .stDataFrame, .stTable {
+            width: 100% !important;
+        }
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
     st.header("KPI Summary", divider='orange')
 
     # Define columns for OTD and Shipping containers
