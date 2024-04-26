@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 from sharepoint_manager import authenticate_user
+import streamlit_shadcn_ui as ui
 
 st.set_page_config(page_title="KPI • Safety", page_icon="assets/MSP_Favicon.png", layout="wide", initial_sidebar_state="auto", menu_items=None)
 
@@ -20,6 +21,7 @@ if st.session_state['authenticated']:
     df_safety = pd.read_csv("data/safety.csv")
 
     st.title("Safety")
+    ui.badges([("Plant Operations", "default")])
     st.subheader("Summary")
     st.caption(":blue[Recordable (OSHA Recordable) refers to workplace injuries, illnesses, or incidents that meet specific criteria set forth by the Occupational Safety and Health Administration (OSHA) for recording and reporting purposes. OSHA requires employers to maintain records of work-related injuries and illnesses through the OSHA Form 300 Log of Work-Related Injuries and Illnesses.]")
     st.write("")

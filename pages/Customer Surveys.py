@@ -1,8 +1,7 @@
 from sharepoint_manager import get_sharepoint_list_items, sharepoint_urls, sharepoint_lists
-from sharepoint_manager import read_secrets, authenticate_user
+from sharepoint_manager import read_secrets
 import streamlit as st
 import pandas as pd
-import plotly.express as px
 import streamlit_shadcn_ui as ui
 
 st.set_page_config(
@@ -14,6 +13,7 @@ st.set_page_config(
 )
 
 st.title("Customer Surveys")
+ui.badges([("Customer Satisfaction", "default")])
 
 # Get SharePoint URLs and Lists
 url = sharepoint_urls["Home Site"]

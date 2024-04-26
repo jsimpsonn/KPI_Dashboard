@@ -24,6 +24,7 @@ if 'authenticated' not in st.session_state or not st.session_state['authenticate
 
 if st.session_state['authenticated']:
     st.title("Lead Times")
+    ui.badges([("Customer Satisfaction", "default")])
 
     # Get SharePoint URLs and Lists
     url = sharepoint_urls["Customer Satisfaction"]

@@ -3,6 +3,7 @@ from sharepoint_manager import read_secrets, authenticate_user
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import streamlit_shadcn_ui as ui
 
 # App Layout
 st.set_page_config(
@@ -23,6 +24,7 @@ if 'authenticated' not in st.session_state or not st.session_state['authenticate
 
 if st.session_state['authenticated']:
     st.title("Shipping")
+    ui.badges([("Plant Operations", "default")])
     st.subheader("Summary")
 
     # Get SharePoint URLs and Lists
