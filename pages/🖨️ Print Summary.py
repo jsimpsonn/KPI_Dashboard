@@ -25,6 +25,7 @@ if st.session_state['authenticated']:
     @media print {
         @page {
             size: landscape;
+            margin: 0;
         }
         body {
             -webkit-print-color-adjust: exact;
