@@ -4,6 +4,7 @@ from sharepoint_manager import read_secrets, authenticate_user
 import plotly.express as px
 import pandas as pd
 import streamlit_shadcn_ui as ui
+import datetime
 
 st.set_page_config(page_title="Print",layout="wide", page_icon="assets/MSP_Favicon.png")
 
@@ -30,7 +31,7 @@ if st.session_state['authenticated']:
         body {
             -webkit-print-color-adjust: exact;
             margin-left: -50px;
-            padding-top: 45px;
+            padding-top: 25px;
             padding-left: 55px;
         }
         .reportview-container .main .block-container {
@@ -45,10 +46,21 @@ if st.session_state['authenticated']:
         .stChart, .stDataFrame, .stTable {
             width: 100% !important;
         }
-        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(2), #root > div:nth-child(1) > div.withScreencast > div > div > div > section.st-emotion-cache-vk3wp9.eczjsme11 {
+        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(2) {
+        margin-top: 0px;
+        margin-right: 0px;
+        margin-left: 0px;
+        padding-top: 0px;
+        padding-right: 0px;
+        padding-left: 0px;
+        }
+        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.st-emotion-cache-vk3wp9.eczjsme11 {
         display: none;
         }
-        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(4), #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(5), #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(6) {
+        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(4) {
+        padding-top: 20px;
+        }
+        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(5), #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(6) {
         padding-top: 50px;
         }
         #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(6) {
@@ -62,8 +74,8 @@ if st.session_state['authenticated']:
     """,
     unsafe_allow_html=True
 )
-    st.header("KPI Summary", divider='orange')
-
+    today_date = datetime.datetime.now().strftime('%m/%d/%Y')
+    st.header(f"KPI Summary - {today_date}", divider='orange')
     # Define columns for OTD and Shipping containers
     row1 = st.columns(2)
     row2 = st.columns(3)
