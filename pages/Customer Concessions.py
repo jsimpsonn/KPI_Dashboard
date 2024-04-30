@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from sharepoint_manager import get_sharepoint_list_items, sharepoint_urls, read_secrets, authenticate_user
+from st_pages import show_pages_from_config, hide_pages
 
 @st.cache_data()
 def load_data():
@@ -100,7 +101,8 @@ st.set_page_config(
     initial_sidebar_state="auto",
     menu_items=None
 )
-
+show_pages_from_config()
+hide_pages("Print Summary")
 # Check if the user is already authenticated
 if 'authenticated' not in st.session_state or not st.session_state['authenticated']:
     access_token = authenticate_user()

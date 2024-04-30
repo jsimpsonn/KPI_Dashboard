@@ -3,6 +3,7 @@ from sharepoint_manager import read_secrets
 import streamlit as st
 import pandas as pd
 import streamlit_shadcn_ui as ui
+from st_pages import show_pages_from_config, hide_pages
 
 st.set_page_config(
     page_title="KPI • Customer Surveys",
@@ -11,9 +12,10 @@ st.set_page_config(
     initial_sidebar_state="auto",
     menu_items=None
 )
+show_pages_from_config()
+hide_pages("Print Summary")
 
 st.title("Customer Surveys")
-ui.badges([("Customer Satisfaction", "default")])
 
 # Get SharePoint URLs and Lists
 url = sharepoint_urls["Home Site"]

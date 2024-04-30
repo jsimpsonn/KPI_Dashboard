@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.express as px
 from sharepoint_manager import authenticate_user
 import streamlit_shadcn_ui as ui
+from st_pages import show_pages_from_config, hide_pages
 
 # Check if the user is already authenticated
 if 'authenticated' not in st.session_state or not st.session_state['authenticated']:
@@ -20,9 +21,9 @@ if st.session_state['authenticated']:
         page_title="KPI • Downtime",
         page_icon="assets/MSP_Favicon.png",
     )
-
+    show_pages_from_config()
+    hide_pages("Print Summary")
     st.title("Downtime")
-    ui.badges([("Plant Operations", "default")])
 
     df_stamco_downtime = pd.read_csv("data/downtime/stamco.csv")
     df_braner_downtime = pd.read_csv("data/downtime/braner.csv")

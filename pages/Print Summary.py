@@ -5,9 +5,11 @@ import plotly.express as px
 import pandas as pd
 import streamlit_shadcn_ui as ui
 import datetime
+from st_pages import show_pages_from_config, hide_pages
 
 st.set_page_config(page_title="Print",layout="wide", page_icon="assets/MSP_Favicon.png")
-
+show_pages_from_config()
+hide_pages("Print Summary")
 # Check if the user is already authenticated
 if 'authenticated' not in st.session_state or not st.session_state['authenticated']:
     access_token = authenticate_user()

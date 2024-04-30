@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import streamlit_shadcn_ui as ui
+from st_pages import show_pages_from_config, hide_pages
 
 st.set_page_config(
     page_title="KPI • Lead Times",
@@ -11,7 +12,8 @@ st.set_page_config(
     initial_sidebar_state="auto",
     menu_items=None
 )
-
+show_pages_from_config()
+hide_pages("Print Summary")
 # Check if the user is already authenticated
 if 'authenticated' not in st.session_state or not st.session_state['authenticated']:
     access_token = authenticate_user()
@@ -24,7 +26,6 @@ if 'authenticated' not in st.session_state or not st.session_state['authenticate
 
 if st.session_state['authenticated']:
     st.title("Lead Times")
-    ui.badges([("Customer Satisfaction", "default")])
 
     # Get SharePoint URLs and Lists
     url = sharepoint_urls["Customer Satisfaction"]
