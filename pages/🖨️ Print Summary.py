@@ -23,6 +23,9 @@ if st.session_state['authenticated']:
     """
     <style>
     @media print {
+        @page {
+            size: landscape;
+        }
         body {
             -webkit-print-color-adjust: exact;
             margin-left: -50px;

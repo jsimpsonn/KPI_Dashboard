@@ -60,20 +60,24 @@ if st.session_state['authenticated']:
     # Convert 'Date' column to datetime for sorting
     df['Date'] = pd.to_datetime(df['Date'])
 
-    # Sort DataFrame by 'Date' column from oldest to newest
-    df = df.sort_values(by='Date', ascending=True)
+    # Sort DataFrame by 'Date' column from oldest to newest for the chart
+    df_chart = df.sort_values(by='Date', ascending=True)
 
-    # Convert 'Date' column to mm/YYYY format
-    df['Date'] = df['Date'].dt.strftime('%B %Y')
+    # Convert 'Date' column to mm/YYYY format for the chart
+    df_chart['Date'] = df_chart['Date'].dt.strftime('%B %Y')
 
     # Plotly line chart
-    fig = px.line(df, x="Date", y="Percent", title="Trucks Loaded in One Hour or Less")
+    fig = px.line(df_chart, x="Date", y="Percent", title="Trucks Loaded in One Hour or Less")
     fig.update_layout(xaxis=dict(dtick="3"), xaxis_tickangle=45)
     st.plotly_chart(fig)
 
     st.subheader("Data")
 
-    df = df.set_index('Date', drop=True)
+    # Sort DataFrame by 'Date' column from newest to oldest for display
+    df = df.sort_values(by='Date', ascending=False)
+
+    # Convert 'Date' column to mm/dd/yyyy format for display
+    df['Date'] = df['Date'].dt.strftime('%m/%d/%Y')
 
     # Display DataFrame
     st.dataframe(df, use_container_width=True)
