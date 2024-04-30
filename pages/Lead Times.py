@@ -83,10 +83,20 @@ if st.session_state['authenticated']:
     df_2023 = df_display[df_display["Date"].str.endswith("2023")]
     df_2024 = df_display[df_display["Date"].str.endswith("2024")]
 
-    # Sort DataFrame by 'Date' column from newest to oldest
+    # Sort DataFrame by 'Date' column from newest to oldest before displaying in tabs
+    df_display['Date'] = pd.to_datetime(df_display['Date'])
     df_display = df_display.sort_values(by='Date', ascending=False)
+
+    df_2023['Date'] = pd.to_datetime(df_2023['Date'])
+    df_2024['Date'] = pd.to_datetime(df_2024['Date'])
+
     df_2023 = df_2023.sort_values(by='Date', ascending=False)
     df_2024 = df_2024.sort_values(by='Date', ascending=False)
+
+    # Convert 'Date' column back to 'mm/dd/yyyy' format for display
+    df_display['Date'] = df_display['Date'].dt.strftime('%m/%d/%Y')
+    df_2023['Date'] = df_2023['Date'].dt.strftime('%m/%d/%Y')
+    df_2024['Date'] = df_2024['Date'].dt.strftime('%m/%d/%Y')
 
     with tabAll:
         st.dataframe(df_display, use_container_width=True)
