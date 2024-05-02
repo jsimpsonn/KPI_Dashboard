@@ -1,69 +1,52 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from sharepoint_manager import authenticate_user
-import streamlit_shadcn_ui as ui
-from st_pages import show_pages_from_config, hide_pages
 
-# Check if the user is already authenticated
-if 'authenticated' not in st.session_state or not st.session_state['authenticated']:
-    access_token = authenticate_user()
-    if access_token:
-        st.session_state['authenticated'] = True
-        st.session_state['access_token'] = access_token
-    else:
-        st.error("You must be authenticated to access this dashboard.")
-        st.stop()  # Stop the app if not authenticated
+st.set_page_config(layout="wide", initial_sidebar_state="auto", menu_items=None)
 
-if st.session_state['authenticated']:
-    # App Layout
-    st.set_page_config(
-        page_title="KPI • Downtime",
-        page_icon="assets/MSP_Favicon.png",
-    )
-    show_pages_from_config()
-    hide_pages("Print Summary")
-    st.title("Downtime")
+def load_data():
+    # Load maintenance and non-maintenance data from separate CSV files
+    maintenance_data = pd.read_csv('data/downtime/rb_mr.csv')
+    non_maintenance_data = pd.read_csv('data/downtime/rb_nmr.csv')
 
-    df_stamco_downtime = pd.read_csv("data/downtime/stamco.csv")
-    df_braner_downtime = pd.read_csv("data/downtime/braner.csv")
-    df_redbud_downtime = pd.read_csv("data/downtime/redbud.csv")
+    # Exclude rows where the category is 'TOTALS'
+    category_data_mr = maintenance_data[maintenance_data['MAINTENANCE RELATED'] != 'TOTALS']
+    category_data_nmr = non_maintenance_data[non_maintenance_data['NON MAINTENANCE RELATED'] != 'TOTALS']
 
-    # Convert "Year" column to integers, remove decimals, and then to string
-    df_stamco_downtime["Year"] = df_stamco_downtime["Year"].astype(int).astype(str)
+    return category_data_mr, category_data_nmr
 
-    # Remove commas from the "Year" column
-    df_stamco_downtime["Year"] = df_stamco_downtime["Year"].str.replace(",", "")
+def main():
+    st.header("Stamco Downtime")
+    category_data_mr, category_data_nmr = load_data()
 
-    # Render charts
-    stamco_downtime = px.line(df_stamco_downtime, x="Month", y=["MR", "NMR"], title="Stamco Downtime")
-    braner_downtime = px.line(df_braner_downtime, x="Month", y=["MR", "NMR"], title="Braner Downtime")
-    redbud_downtime = px.line(df_redbud_downtime, x="Month", y=["MR", "NMR"], title="Redbud Downtime")
+    months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUNE', 'JULY', 'AUG', 'SEPT', 'OCT', 'NOV', 'DEC']
+    selected_months = st.multiselect('Select months for the treemap:', months, default=['JAN', 'FEB', 'MAR', 'APR'])
 
-    stamco_downtime.update_layout(yaxis_title="Hours",xaxis=dict(dtick="1"),xaxis_tickangle=45)
-    braner_downtime.update_layout(yaxis_title="Hours",xaxis=dict(dtick="1"),xaxis_tickangle=45)
-    redbud_downtime.update_layout(yaxis_title="Hours",xaxis=dict(dtick="1"),xaxis_tickangle=45)
+    color_scale = px.colors.sequential.RdBu_r
 
-    st.plotly_chart(stamco_downtime)
+    for month in selected_months:
+        # Prepare data for maintenance related downtime
+        treemap_data_mr = category_data_mr.melt(id_vars=['MAINTENANCE RELATED'], value_vars=[month], 
+                                                var_name='Month', value_name='Downtime')
+        treemap_data_mr = treemap_data_mr.rename(columns={'MAINTENANCE RELATED': 'Category'})
+        treemap_data_mr['Maintenance Status'] = 'Maintenance Related'
 
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
+        # Prepare data for non-maintenance related downtime
+        treemap_data_nmr = category_data_nmr.melt(id_vars=['NON MAINTENANCE RELATED'], value_vars=[month], 
+                                                  var_name='Month', value_name='Downtime')
+        treemap_data_nmr = treemap_data_nmr.rename(columns={'NON MAINTENANCE RELATED': 'Category'})
+        treemap_data_nmr['Maintenance Status'] = 'Non-Maintenance Related'
 
-    st.plotly_chart(braner_downtime)
+        # Combine both datasets
+        treemap_data = pd.concat([treemap_data_mr, treemap_data_nmr])
+        treemap_data = treemap_data[treemap_data['Downtime'] != 0]  # Filter out zero downtime entries
 
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
+        # Generate the treemap
+        fig_treemap = px.treemap(treemap_data, path=['Maintenance Status', 'Category'], values='Downtime',
+                                 title=month, color='Downtime', color_continuous_scale=color_scale)
+        fig_treemap.update_layout(uniformtext=dict(minsize=10, mode='show'), margin=dict(t=50, l=25, r=25, b=25),
+                                  plot_bgcolor='rgba(0,0,0,0)')
+        st.plotly_chart(fig_treemap, use_container_width=True)
 
-    st.plotly_chart(redbud_downtime)
+if __name__ == "__main__":
+    main()
