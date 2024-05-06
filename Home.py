@@ -24,7 +24,7 @@ if st.session_state['authenticated']:
     st.subheader('KPI Dashboard 📈')
     st.header('Mississippi Steel Processing', divider='blue')
     def print():
-            want_to_contribute = st.button("Print KPI Summary",type="primary", use_container_width=True)
+            want_to_contribute = st.button("Print KPI Summary",type="secondary", use_container_width=True)
             if want_to_contribute:
                 switch_page("print summary")
 
@@ -33,10 +33,8 @@ if st.session_state['authenticated']:
     )
 
     st.write("")  # Presumably for spacing; consider if needed or could be styled differently
-    with st.sidebar:
-        print()
         
     st.toast("Authorization successful.   :white_check_mark:")
-
+    st.caption("Values in this dashboard are managed through a combination of CSV files and SharePoint data. While some data is still sourced from CSV files, efforts are underway to migrate all data retrieval to SharePoint. Please note that the information provided here may not be real-time. However, any updates made to the SharePoint data will be reflected in the dashboard.")
 with bottom():
-        st.caption("Values in this dashboard are managed through a combination of CSV files and SharePoint data. While some data is still sourced from CSV files, efforts are underway to migrate all data retrieval to SharePoint. Please note that the information provided here may not be real-time. However, any updates made to the SharePoint data will be reflected in the dashboard.")
+        print()

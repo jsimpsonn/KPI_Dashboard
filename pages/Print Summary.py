@@ -141,21 +141,21 @@ if st.session_state['authenticated']:
     ###### Downtime
     stamco_downtime_container = row3[0].container(border=True)
     with stamco_downtime_container:
-        df_stamco_tonnage = pd.read_csv("data/downtime/stamco.csv")
+        df_stamco_tonnage = pd.read_csv("data/downtime/stamco/stamco.csv")
         stamco_downtime = px.line(df_stamco_tonnage, x="Month", y=["MR", "NMR"], title="Stamco Downtime")
         stamco_downtime.update_layout(yaxis_title="Hours",xaxis=dict(dtick="3"),xaxis_tickangle=45)
         st.plotly_chart(stamco_downtime, use_container_width=True)
 
     braner_downtime_container = row3[1].container(border=True)
     with braner_downtime_container:
-        df_braner_tonnage = pd.read_csv("data/downtime/braner.csv")
+        df_braner_tonnage = pd.read_csv("data/downtime/braner/braner.csv")
         braner_downtime = px.line(df_braner_tonnage, x="Month", y=["MR", "NMR"], title="Braner Downtime")
         braner_downtime.update_layout(yaxis_title="Hours",xaxis=dict(dtick="3"),xaxis_tickangle=45)
         st.plotly_chart(braner_downtime, use_container_width=True)
 
     redbud_downtime_container = row3[2].container(border=True)
     with redbud_downtime_container:
-        df_redbud_tonnage = pd.read_csv("data/downtime/redbud.csv")
+        df_redbud_tonnage = pd.read_csv("data/downtime/redbud/redbud.csv")
         redbud_downtime = px.line(df_redbud_tonnage, x="Month", y=["MR", "NMR"], title="Redbud Downtime")
         redbud_downtime.update_layout(yaxis_title="Hours",xaxis=dict(dtick="3"),xaxis_tickangle=45)
         st.plotly_chart(redbud_downtime, use_container_width=True)
