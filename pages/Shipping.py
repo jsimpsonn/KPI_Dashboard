@@ -73,13 +73,9 @@ if st.session_state['authenticated']:
     fig.update_layout(xaxis=dict(dtick="3"), xaxis_tickangle=45)
     st.plotly_chart(fig)
 
-    st.subheader("Data")
-
-    # Sort DataFrame by 'Date' column from newest to oldest for display
     df = df.sort_values(by='Date', ascending=False)
 
-    # Convert 'Date' column to mm/dd/yyyy format for display
     df['Date'] = df['Date'].dt.strftime('%m/%d/%Y')
 
-    # Display DataFrame
-    st.dataframe(df, use_container_width=True)
+    with st.expander("Data",expanded=False):
+        st.dataframe(df, use_container_width=True)
