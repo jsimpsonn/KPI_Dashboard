@@ -66,9 +66,9 @@ if st.session_state['authenticated']:
 
         # Plotly line chart
         fig = px.line(df, x="Date", y=["Stamco", "Braner", "Red Bud"])
-        chart_column, metrics_column = st.columns([3, 1])  # Adjust the width ratio as needed
+        chart_column, metrics_column = st.columns([4, 1])  # Adjust the width ratio as needed
         with chart_column:
-            st.plotly_chart(fig)
+            st.plotly_chart(fig, use_container_width=True)
 
         # Display most recent values for Braner, Stamco, and Red Bud along with change since previous row
         with metrics_column:
