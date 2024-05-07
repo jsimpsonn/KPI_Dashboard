@@ -236,6 +236,7 @@ if st.session_state['authenticated']:
             })
             df_otd['Date'] = pd.to_datetime(df_otd['Date']).dt.strftime("%B %Y")
             otd_chart = px.line(df_otd, x='Date', y='Percent', title="Work Order On-time Delivery")
+            otd_chart.add_hline(y=77, line_dash="dot", annotation_text="Goal")
             st.plotly_chart(otd_chart, use_container_width=True)
 
     # Shipping Chart in the second column container
@@ -257,6 +258,7 @@ if st.session_state['authenticated']:
             df_shipping['Date'] = pd.to_datetime(df_shipping['Date']).dt.strftime('%B %Y')
             shipping_chart = px.line(df_shipping, x="Date", y="Percent", title="Shipping - Trucks Loaded in One Hour or Less")
             shipping_chart.update_layout(xaxis=dict(dtick="3"),xaxis_tickangle=45)
+            shipping_chart.add_hline(y=75, line_dash="dot", annotation_text="Goal")
             st.plotly_chart(shipping_chart, use_container_width=True)
 
     ######## Safety
