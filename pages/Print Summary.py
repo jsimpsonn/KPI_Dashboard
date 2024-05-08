@@ -167,14 +167,14 @@ if st.session_state['authenticated']:
             mode='lines',
             name=f"{['Stamco', 'Braner', 'Redbud'][i]} MR",
             fill='tozeroy',
-            line=dict(color=colors[i], width=2),
+            line=dict(color=colors[i], width=1),
             fillcolor=f'rgba({colors[i][4:-1]}, 0.2)'
         ))
 
     # Add goal hlines for MR downtime
-    mr_fig.add_hline(y=15.5, line_dash="dot", annotation_text="Stamco MR Goal", annotation_position="top right", line_color='rgb(255, 0, 0)')
-    mr_fig.add_hline(y=26, line_dash="dot", annotation_text="Braner MR Goal", annotation_position="top right", line_color='rgb(0, 255, 0)')
-    mr_fig.add_hline(y=16.5, line_dash="dot", annotation_text="Redbud MR Goal", annotation_position="top left", line_color='rgb(0, 0, 255)')
+    mr_fig.add_hline(y=15.5, line_dash="dot", annotation_text="Stamco Goal", annotation_position="bottom right", line_color='rgb(255, 0, 0)', annotation_font_size=14, annotation_font_color="red")
+    mr_fig.add_hline(y=26, line_dash="dot", annotation_text="Braner Goal", annotation_position="top right", line_color='rgb(0, 255, 0)', annotation_font_size=14, annotation_font_color="green")
+    mr_fig.add_hline(y=16.5, line_dash="dot", annotation_text="Redbud Goal", annotation_position="top left", line_color='rgb(0, 0, 255)', annotation_font_size=14, annotation_font_color="blue")
 
     # Set chart title and axis labels
     mr_fig.update_layout(
@@ -199,18 +199,18 @@ if st.session_state['authenticated']:
             mode='lines',
             name=f"{['Stamco', 'Braner', 'Redbud'][i]} NMR",
             fill='tozeroy',
-            line=dict(color=colors[i], width=2),
+            line=dict(color=colors[i], width=1),
             fillcolor=f'rgba({colors[i][4:-1]}, 0.2)'
         ))
 
     # Add goal hlines for NMR downtime
-    nmr_fig.add_hline(y=45, line_dash="dot", annotation_text="Stamco NMR Goal", annotation_position="top left", line_color='rgb(255, 0, 0)')
-    nmr_fig.add_hline(y=45, line_dash="dot", annotation_text="Braner NMR Goal", annotation_position="top right", line_color='rgb(0, 255, 0)')
-    nmr_fig.add_hline(y=12.5, line_dash="dot", annotation_text="Redbud NMR Goal", annotation_position="top right", line_color='rgb(0, 0, 255)')
+    nmr_fig.add_hline(y=45, line_dash="dot", annotation_text="Stamco Goal", annotation_position="top left", line_color='rgb(255, 0, 0)', annotation_font_size=14, annotation_font_color="red")
+    nmr_fig.add_hline(y=45, line_dash="dot", annotation_text="Braner Goal", annotation_position="top right", line_color='rgb(0, 255, 0)', annotation_font_size=14, annotation_font_color="green")
+    nmr_fig.add_hline(y=12.5, line_dash="dot", annotation_text="Redbud Goal", annotation_position="top right", line_color='rgb(0, 0, 255)', annotation_font_size=14, annotation_font_color="blue")
 
     # Set chart title and axis labels
     nmr_fig.update_layout(
-        title="Non-maintenance Related DT",
+        title="Non-maintenance Related Downtime",
         xaxis_title="Month",
         yaxis_title="Hours",
         xaxis_tickangle=45
@@ -258,7 +258,7 @@ if st.session_state['authenticated']:
             df_shipping['Date'] = pd.to_datetime(df_shipping['Date']).dt.strftime('%B %Y')
             shipping_chart = px.line(df_shipping, x="Date", y="Percent", title="Shipping - Trucks Loaded in One Hour or Less")
             shipping_chart.update_layout(xaxis=dict(dtick="3"))
-            shipping_chart.add_hline(y=75, line_dash="dot", annotation_text="Goal")
+            shipping_chart.add_hline(y=75, line_dash="dot", annotation_text="Goal", annotation_font_size=14, annotation_font_color="black", annotation_position="bottom right")
             st.plotly_chart(shipping_chart, use_container_width=True)
 
     ######## Safety

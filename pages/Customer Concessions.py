@@ -39,13 +39,11 @@ def load_data():
                 data.append(item_data)
             all_data.extend(data)
 
-    # By Customer
     df_customer_concessions = pd.DataFrame(all_data)
     df_customer_concessions['Date'] = pd.to_datetime(df_customer_concessions['Date'])
     years = df_customer_concessions['Date'].dt.year.unique()
     all_years = ["All"] + sorted([str(year) for year in years])
 
-    # By Process Owner
     df_process_owner = pd.DataFrame(all_data)
     df_process_owner['Date'] = pd.to_datetime(df_process_owner['Date'])
 
@@ -55,45 +53,31 @@ def customer_concessions_total(df_customer_concessions):
     subheader_text = f"Top {st.session_state['top_items']} Customers by # of Concessions - {st.session_state['selected_year']}"
     st.subheader(subheader_text)
 
-    with st.container(border=True):
-        row1 = st.columns([1, 2])
-
-        with row1[0]:
-            customer_summary = df_customer_concessions.groupby('Customer').agg(
-                Total=('Customer', 'size'),
-                Shippable=('Can we Ship?', lambda x: (x == 'Yes').sum())
-            )
-            customer_summary['Percentage Shippable'] = (customer_summary['Shippable'] / customer_summary['Total']).round(4) * 100
-            customer_summary = customer_summary.sort_values(by='Total', ascending=False).head(st.session_state['top_items'])
-            customer_summary['Percentage Shippable'] = customer_summary['Percentage Shippable'].apply(lambda x: f"{x:.2f}%")
+    with st.container(border=False):
+        customer_summary = df_customer_concessions.groupby('Customer').agg(
+            Total=('Customer', 'size'),
+            Shippable=('Can we Ship?', lambda x: (x == 'Yes').sum())
+        )
+        customer_summary['Percentage Shippable'] = (customer_summary['Shippable'] / customer_summary['Total']).round(4) * 100
+        customer_summary = customer_summary.sort_values(by='Total', ascending=False).head(st.session_state['top_items'])
+        customer_summary['Percentage Shippable'] = customer_summary['Percentage Shippable'].apply(lambda x: f"{x:.2f}%")
+        chart_data = customer_summary[['Total']]
+        chart_data.index = customer_summary.index
+        st.bar_chart(chart_data, use_container_width=True)
+        with st.expander("Show table", expanded=False):
             st.dataframe(customer_summary, use_container_width=True)
-
-        with row1[1]:
-            # Ensure the DataFrame has 'Customer' as index before plotting
-            chart_data = customer_summary[['Total']]
-            chart_data.index = customer_summary.index  # Set 'Customer' as the index
-            st.bar_chart(chart_data, use_container_width=True)
 
 def customer_concessions_date(df_process_owner):
     subheader_text = "Process Owner"
     st.subheader(subheader_text)
-    with st.container(border=True):
-        row1 = st.columns([1, 1])
-        with row1[0]:
-            # Convert month names to month numbers and sort
-            month_order = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-            process_owner_summary = df_process_owner.groupby([df_process_owner['Date'].dt.strftime('%B'), 'Process Owner']).size().unstack(fill_value=0)
-            process_owner_summary = process_owner_summary.reindex(month_order, axis=0, fill_value=0)
-            
-            # Add a last column for total for each month
-            process_owner_summary['Total'] = process_owner_summary.sum(axis=1)
-            
+    with st.container(border=False):
+        df_process_owner['YearMonth'] = df_process_owner['Date'].dt.strftime('%B %Y')
+        process_owner_summary = df_process_owner.groupby(['YearMonth', 'Process Owner']).size().unstack(fill_value=0)
+        process_owner_summary.sort_index(inplace=True)
+        st.bar_chart(process_owner_summary, use_container_width=True)
+        with st.expander("Show table", expanded=False):
             st.dataframe(process_owner_summary, use_container_width=True, height=460)
 
-        with row1[1]:
-            st.bar_chart(process_owner_summary.drop(columns=['Total']), use_container_width=True)
-
-# Set page configuration
 st.set_page_config(
     page_title="KPI • Concessions",
     page_icon="assets/MSP_Favicon.png",
@@ -103,7 +87,6 @@ st.set_page_config(
 )
 show_pages_from_config()
 hide_pages("Print Summary")
-# Check if the user is already authenticated
 if 'authenticated' not in st.session_state or not st.session_state['authenticated']:
     access_token = authenticate_user()
     if access_token:
@@ -111,23 +94,35 @@ if 'authenticated' not in st.session_state or not st.session_state['authenticate
         st.session_state['access_token'] = access_token
     else:
         st.error("You must be authenticated to access this dashboard.")
-        st.stop()  # Stop the app if not authenticated
+        st.stop()
 
 if st.session_state['authenticated']:
     st.title("Customer Concessions")
-
     df_customer_concessions, df_process_owner, all_years = load_data()
 
-    st.session_state.selected_year = st.radio("Select year", all_years, key='year', horizontal=True)
-    st.session_state.top_items = st.slider("Select the number of customers with the most concessions to show", 1, 50, 10, key='items')
+    with st.container(border=True):
+        st.session_state.selected_year = st.radio("Select year", all_years, key='year', horizontal=True)
+        st.session_state.top_items = st.slider("Select the number of customers with the most concessions to show", 1, 50, 10, key='items')
 
-    if st.session_state.selected_year == "All":
-        filtered_concessions = df_customer_concessions
-        filtered_process_owner = df_process_owner
-    else:
-        filtered_concessions = df_customer_concessions[df_customer_concessions['Date'].dt.year == int(st.session_state.selected_year)]
-        filtered_process_owner = df_process_owner[df_process_owner['Date'].dt.year == int(st.session_state.selected_year)]
-
-    # Display the customer concessions
-    customer_concessions_total(filtered_concessions)
-    customer_concessions_date(filtered_process_owner)
+        if st.session_state.selected_year == "All":
+            filtered_concessions = df_customer_concessions
+            filtered_process_owner = df_process_owner
+        else:
+            filtered_concessions = df_customer_concessions[df_customer_concessions['Date'].dt.year == int(st.session_state.selected_year)]
+            filtered_process_owner = df_process_owner[df_process_owner['Date'].dt.year == int(st.session_state.selected_year)]
+        customer_concessions_total(filtered_concessions)
+    "---"
+    with st.container(border=True):
+        customer_concessions_date(filtered_process_owner)
+    "---"
+    with st.container(border=True):
+        st.subheader("Non-shippable Concessions")
+        if st.session_state.selected_year == "All":
+            df_non_shippable = df_customer_concessions[df_customer_concessions['Can we Ship?'] == "No"]
+        else:
+            df_non_shippable = df_customer_concessions[(df_customer_concessions['Date'].dt.year == int(st.session_state.selected_year)) & (df_customer_concessions['Can we Ship?'] == "No")]
+        df_non_shippable = df_non_shippable.sort_values(by='Date', ascending=False)
+        if not df_non_shippable.empty:
+            st.dataframe(df_non_shippable[['Date', 'Customer', 'WO #', 'PO #', 'Reason for Call']], use_container_width=True, hide_index=True)
+        else:
+            st.write("No non-shippable items found for the selected year.")

@@ -64,8 +64,8 @@ if st.session_state['authenticated']:
     # Set 'Date' column as index and remove it from columns
     df = df_OTD.set_index('Date', drop=True)
 
-    # Plot the on-time delivery percentage
-    otd = px.line(df_OTD, x=df.index, y="Percent")
+    otd = px.line(df_OTD, x="Date", y="Percent")
+    otd.add_hline(y=75, line_dash="dot")
     st.plotly_chart(otd)
 
     st.subheader("Data")

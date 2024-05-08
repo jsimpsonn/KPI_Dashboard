@@ -61,7 +61,7 @@ if st.session_state['authenticated']:
     lifetime_production.update_layout(yaxis_title="Tons",xaxis=dict(dtick="6"),xaxis_tickangle=45)
 
     # Render lifetime production chart
-    st.plotly_chart(lifetime_production)
+    st.plotly_chart(lifetime_production, config={'displayModeBar': False})
     st.write("")
     st.write("")
     st.write("")
