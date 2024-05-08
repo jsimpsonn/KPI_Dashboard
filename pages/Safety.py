@@ -25,13 +25,18 @@ if st.session_state['authenticated']:
     st.title("Safety")
     st.caption(":blue[Recordable (OSHA Recordable) refers to workplace injuries, illnesses, or incidents that meet specific criteria set forth by the Occupational Safety and Health Administration (OSHA) for recording and reporting purposes. OSHA requires employers to maintain records of work-related injuries and illnesses through the OSHA Form 300 Log of Work-Related Injuries and Illnesses.]")
     st.subheader("Summary")
+    # Convert 'Date' column to datetime and sort by this date in descending order
+    df_safety['Date'] = pd.to_datetime(df_safety['Date'])
+    df_safety.sort_values('Date', ascending=False, inplace=True)
+
+    # The most recent incident is now the first row after sorting
     most_recent_incident = df_safety.iloc[0]
 
     # Create a string with the relevant information from the most recent incident row
-    incident_warning = f"Most recent safety incident: {most_recent_incident['Date']} - {most_recent_incident['Description']}"
+    incident_warning = f"Most recent safety incident: {most_recent_incident['Date'].strftime('%m/%d/%Y')} - {most_recent_incident['Description']}"
 
     # Display the warning
-    st.error(incident_warning)
+    st.warning(incident_warning)
     st.write("")
     st.write("")
     st.write("")
