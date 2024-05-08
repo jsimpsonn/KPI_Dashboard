@@ -174,7 +174,7 @@ if st.session_state['authenticated']:
     # Add goal hlines for MR downtime
     mr_fig.add_hline(y=15.5, line_dash="dot", annotation_text="Stamco MR Goal", annotation_position="top right", line_color='rgb(255, 0, 0)')
     mr_fig.add_hline(y=26, line_dash="dot", annotation_text="Braner MR Goal", annotation_position="top right", line_color='rgb(0, 255, 0)')
-    mr_fig.add_hline(y=16.5, line_dash="dot", annotation_text="Redbud MR Goal", annotation_position="top right", line_color='rgb(0, 0, 255)')
+    mr_fig.add_hline(y=16.5, line_dash="dot", annotation_text="Redbud MR Goal", annotation_position="top left", line_color='rgb(0, 0, 255)')
 
     # Set chart title and axis labels
     mr_fig.update_layout(
@@ -204,7 +204,7 @@ if st.session_state['authenticated']:
         ))
 
     # Add goal hlines for NMR downtime
-    nmr_fig.add_hline(y=45, line_dash="dot", annotation_text="Stamco NMR Goal", annotation_position="top right", line_color='rgb(255, 0, 0)')
+    nmr_fig.add_hline(y=45, line_dash="dot", annotation_text="Stamco NMR Goal", annotation_position="top left", line_color='rgb(255, 0, 0)')
     nmr_fig.add_hline(y=45, line_dash="dot", annotation_text="Braner NMR Goal", annotation_position="top right", line_color='rgb(0, 255, 0)')
     nmr_fig.add_hline(y=12.5, line_dash="dot", annotation_text="Redbud NMR Goal", annotation_position="top right", line_color='rgb(0, 0, 255)')
 
@@ -257,7 +257,7 @@ if st.session_state['authenticated']:
             df_shipping = df_shipping.sort_values(by='Date', ascending=True)
             df_shipping['Date'] = pd.to_datetime(df_shipping['Date']).dt.strftime('%B %Y')
             shipping_chart = px.line(df_shipping, x="Date", y="Percent", title="Shipping - Trucks Loaded in One Hour or Less")
-            shipping_chart.update_layout(xaxis=dict(dtick="3"),xaxis_tickangle=45)
+            shipping_chart.update_layout(xaxis=dict(dtick="3"))
             shipping_chart.add_hline(y=75, line_dash="dot", annotation_text="Goal")
             st.plotly_chart(shipping_chart, use_container_width=True)
 
