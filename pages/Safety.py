@@ -57,7 +57,7 @@ if st.session_state['authenticated']:
     with col1:
         st.dataframe(df_combined.set_index('Year'), use_container_width=False)
     with col2:
-        fig = px.line(df_combined, x='Year', y='Total Incidents')
+        fig = px.bar(df_combined, x='Year', y='Total Incidents')
         fig.update_layout(
         margin=dict(l=0, r=0, t=0, b=0),
         height=300
