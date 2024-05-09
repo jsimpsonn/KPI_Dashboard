@@ -119,7 +119,7 @@ if st.session_state['authenticated']:
         df_stamco_tonnage = pd.read_csv("data/production/stamco.csv")
         stamco_production = px.line(df_stamco_tonnage, x="Month", y=["1st", "2nd", "3rd"], title="Stamco Production")
         stamco_production.update_layout(yaxis_title="TPH",xaxis=dict(dtick="3"),xaxis_tickangle=45)
-        stamco_production.add_hline(y=10, line_dash="dot", annotation_text="Goal", annotation_position="top right")
+        stamco_production.add_hline(y=10, line_dash="dot", annotation_text="Goal", annotation_position="bottom right",annotation_font_size=14, annotation_font_color="black")
         st.plotly_chart(stamco_production, use_container_width=True)
 
     braner_production_container = row2[1].container(border=True)
@@ -127,7 +127,7 @@ if st.session_state['authenticated']:
         df_braner_tonnage = pd.read_csv("data/production/braner.csv")
         braner_production = px.line(df_braner_tonnage, x="Month", y=["1st", "2nd"], title="Braner Production")
         braner_production.update_layout(yaxis_title="TPH",xaxis=dict(dtick="3"),xaxis_tickangle=45)
-        braner_production.add_hline(y=18.5, line_dash="dot", annotation_text="Goal", annotation_position="top right")
+        braner_production.add_hline(y=18.5, line_dash="dot", annotation_text="Goal", annotation_position="top right",annotation_font_size=14, annotation_font_color="black")
         st.plotly_chart(braner_production, use_container_width=True)
 
     redbud_production_container = row2[2].container(border=True)
@@ -135,7 +135,7 @@ if st.session_state['authenticated']:
         df_redbud_tonnage = pd.read_csv("data/production/redbud.csv")
         redbud_production = px.line(df_redbud_tonnage, x="Month", y=["1st", "2nd"], title="Redbud Production")
         redbud_production.update_layout(yaxis_title="TPH",xaxis=dict(dtick="3"),xaxis_tickangle=45)
-        redbud_production.add_hline(y=20, line_dash="dot", annotation_text="Goal", annotation_position="top right")
+        redbud_production.add_hline(y=20, line_dash="dot", annotation_text="Goal", annotation_position="top right", annotation_font_size=14, annotation_font_color="black")
         st.plotly_chart(redbud_production, use_container_width=True)
 
     # Define colors for each line
@@ -236,7 +236,7 @@ if st.session_state['authenticated']:
             })
             df_otd['Date'] = pd.to_datetime(df_otd['Date']).dt.strftime("%B %Y")
             otd_chart = px.line(df_otd, x='Date', y='Percent', title="Work Order On-time Delivery")
-            otd_chart.add_hline(y=77, line_dash="dot", annotation_text="Goal")
+            otd_chart.add_hline(y=77, line_dash="dot", annotation_text="Goal", annotation_font_size=14, annotation_font_color="black")
             st.plotly_chart(otd_chart, use_container_width=True)
 
     # Shipping Chart in the second column container
@@ -272,4 +272,4 @@ if st.session_state['authenticated']:
         df_grouped_total = df_safety.groupby('Year').size().reset_index(name='Total Incidents')
         df_combined = df_grouped_total.merge(df_grouped_recordable, how='left', on='Year').fillna(0)
         st.subheader("Safety")
-        st.dataframe(df_combined.set_index('Year'), use_container_width=False)
+        st.dataframe(df_combined.set_index('Year'), use_container_width=True)
