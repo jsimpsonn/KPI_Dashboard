@@ -69,4 +69,15 @@ if items:
     categories = numeric_columns
     fig = px.line_polar(r=avg_metrics.values, theta=categories, line_close=True)
     fig.update_traces(fill='toself')
+    fig.update_layout(
+        polar=dict(
+            radialaxis=dict(
+                tickmode='array',
+                tickvals=[i * 0.1 for i in range(int(50) + 1)],
+                ticktext=['{:.1f}'.format(i * 0.1) if i % 5 == 0 else '' for i in range(int(50) + 1)],
+                range=[0, 5],
+                tickfont=dict(color='black')
+            )
+        )
+    )
     st.plotly_chart(fig, use_container_width=True)
