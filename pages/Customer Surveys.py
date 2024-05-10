@@ -53,13 +53,13 @@ if items:
     df_2024 = df_customer_surveys[df_customer_surveys['Date'].dt.year == 2024]
 
     with tabAll:
-        st.dataframe(df_customer_surveys, use_container_width=True)
+        st.dataframe(df_customer_surveys, use_container_width=True, hide_index=True)
     with tab2022:
-        st.dataframe(df_2022, use_container_width=True)
+        st.dataframe(df_2022, use_container_width=True, hide_index=True)
     with tab2023:
-        st.dataframe(df_2023, use_container_width=True)
+        st.dataframe(df_2023, use_container_width=True, hide_index=True)
     with tab2024:
-        st.dataframe(df_2024, use_container_width=True)
+        st.dataframe(df_2024, use_container_width=True, hide_index=True)
     
     numeric_columns = ['On Time Performance', 'Quality of Processing', 'Pricing', 'Customer Service', 'Overall Satisfaction']
     df_customer_surveys[numeric_columns] = df_customer_surveys[numeric_columns].apply(pd.to_numeric, errors='coerce')
