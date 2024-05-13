@@ -129,7 +129,7 @@ if st.session_state['authenticated']:
         filtered_redbud = df_redbud_tonnage[df_redbud_tonnage["Month"].str.contains(selected_year_redbud)]
 
     # Redbud Production Chart
-    redbud_production = px.line(filtered_redbud, x="Month", y=["1st", "2nd"], title="Redbud Production")
+    redbud_production = px.line(filtered_redbud, x="Month", y=["1st", "2nd", "3rd"], title="Redbud Production")
     redbud_production.update_layout(yaxis_title="TPH",xaxis=dict(dtick="3"),xaxis_tickangle=45)
 
     # Render Redbud production chart
