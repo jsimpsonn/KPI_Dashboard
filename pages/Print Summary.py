@@ -119,7 +119,8 @@ if st.session_state['authenticated']:
         df_stamco_tonnage = pd.read_csv("data/production/stamco.csv")
         stamco_production = px.line(df_stamco_tonnage, x="Month", y=["1st", "2nd", "3rd"], title="Stamco Production")
         stamco_production.update_layout(yaxis_title="TPH",xaxis=dict(dtick="3"),xaxis_tickangle=45)
-        stamco_production.add_hline(y=10, line_dash="dot", annotation_text="Goal", annotation_position="bottom right",annotation_font_size=14, annotation_font_color="black")
+        stamco_production.add_hrect(y0=10,y1=15, fillcolor="green", opacity=0.1, annotation_text="Goal = 10 TPH", annotation_position="top left",annotation_font_size=14, annotation_font_color="black")
+        stamco_production.add_hrect(y0=0,y1=10, fillcolor="red", opacity=0.1)
         st.plotly_chart(stamco_production, use_container_width=True)
 
     braner_production_container = row2[1].container(border=True)
@@ -127,7 +128,8 @@ if st.session_state['authenticated']:
         df_braner_tonnage = pd.read_csv("data/production/braner.csv")
         braner_production = px.line(df_braner_tonnage, x="Month", y=["1st", "2nd"], title="Braner Production")
         braner_production.update_layout(yaxis_title="TPH",xaxis=dict(dtick="3"),xaxis_tickangle=45)
-        braner_production.add_hline(y=18.5, line_dash="dot", annotation_text="Goal", annotation_position="top right",annotation_font_size=14, annotation_font_color="black")
+        braner_production.add_hrect(y0=18.5,y1=30, fillcolor="green", opacity=0.1, annotation_text="Goal = 18.5 TPH", annotation_position="top left",annotation_font_size=14, annotation_font_color="black")
+        braner_production.add_hrect(y0=9,y1=18.5, fillcolor="red", opacity=0.1)
         st.plotly_chart(braner_production, use_container_width=True)
 
     redbud_production_container = row2[2].container(border=True)
@@ -135,7 +137,8 @@ if st.session_state['authenticated']:
         df_redbud_tonnage = pd.read_csv("data/production/redbud.csv")
         redbud_production = px.line(df_redbud_tonnage, x="Month", y=["1st", "2nd"], title="Redbud Production")
         redbud_production.update_layout(yaxis_title="TPH",xaxis=dict(dtick="3"),xaxis_tickangle=45)
-        redbud_production.add_hline(y=20, line_dash="dot", annotation_text="Goal", annotation_position="top right", annotation_font_size=14, annotation_font_color="black")
+        redbud_production.add_hrect(y0=20,y1=30, fillcolor="green", opacity=0.1, annotation_text="Goal = 20 TPH", annotation_position="top left",annotation_font_size=14, annotation_font_color="black")
+        redbud_production.add_hrect(y0=17,y1=20, fillcolor="red", opacity=0.1)
         st.plotly_chart(redbud_production, use_container_width=True)
 
     # Define colors for each line
@@ -236,7 +239,8 @@ if st.session_state['authenticated']:
             })
             df_otd['Date'] = pd.to_datetime(df_otd['Date']).dt.strftime("%B %Y")
             otd_chart = px.line(df_otd, x='Date', y='Percent', title="Work Order On-time Delivery")
-            otd_chart.add_hline(y=77, line_dash="dot", annotation_text="Goal", annotation_font_size=14, annotation_font_color="black")
+            otd_chart.add_hrect(y0=77, y1=100, fillcolor='green', opacity=0.1, annotation_text='Goal = 77%', annotation_font_size=14, annotation_font_color='black', annotation_position='top left')
+            otd_chart.add_hrect(y0=70, y1=77, fillcolor='red', opacity=0.1)
             st.plotly_chart(otd_chart, use_container_width=True)
 
     # Shipping Chart in the second column container
@@ -258,7 +262,8 @@ if st.session_state['authenticated']:
             df_shipping['Date'] = pd.to_datetime(df_shipping['Date']).dt.strftime('%B %Y')
             shipping_chart = px.line(df_shipping, x="Date", y="Percent", title="Shipping - Trucks Loaded in One Hour or Less")
             shipping_chart.update_layout(xaxis=dict(dtick="3"))
-            shipping_chart.add_hline(y=75, line_dash="dot", annotation_text="Goal", annotation_font_size=14, annotation_font_color="black", annotation_position="bottom right")
+            shipping_chart.add_hrect(y0=75, y1=100, fillcolor='green', opacity=0.1, annotation_text='Goal = 75%', annotation_position='top left', annotation_font_size=14, annotation_font_color="black")
+            shipping_chart.add_hrect(y0=50, y1=75, fillcolor='red', opacity=0.1)
             st.plotly_chart(shipping_chart, use_container_width=True)
 
     ######## Safety

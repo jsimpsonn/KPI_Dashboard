@@ -65,7 +65,8 @@ if st.session_state['authenticated']:
     df = df_OTD.set_index('Date', drop=True)
 
     otd = px.line(df_OTD, x="Date", y="Percent")
-    otd.add_hline(y=75, line_dash="dot")
+    otd.add_hrect(y0=77,y1=100, fillcolor="green", opacity=0.1, annotation_text="Goal = 77%", annotation_position="top left", annotation_font_color='black', annotation_font_size=14)
+    otd.add_hrect(y0=70,y1=77, fillcolor="red", opacity=0.1)
     st.plotly_chart(otd)
 
     st.subheader("Data")

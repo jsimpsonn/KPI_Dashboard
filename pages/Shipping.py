@@ -71,7 +71,9 @@ if st.session_state['authenticated']:
     # Plotly line chart
     fig = px.line(df_chart, x="Date", y="Percent", title="Trucks Loaded in One Hour or Less")
     fig.update_layout(xaxis=dict(dtick="3"), xaxis_tickangle=45)
-    fig.add_hline(y=75, line_dash="dot")
+    fig.add_hrect(y0=75,y1=100, fillcolor="green", opacity=0.1, annotation_text="Goal = 75%", annotation_position="top left")
+    fig.add_hrect(y0=50,y1=75, fillcolor="red", opacity=0.1)
+
     st.plotly_chart(fig)
 
     df = df.sort_values(by='Date', ascending=False)
