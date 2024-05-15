@@ -59,7 +59,7 @@ if st.session_state['authenticated']:
     # Lifetime Production Chart
     lifetime_production = px.line(filtered_lifetime, x="Month", y="Tons", title="Lifetime Tonnage")
     lifetime_production.update_layout(yaxis_title="Tons",xaxis=dict(dtick="6"),xaxis_tickangle=45)
-    st.plotly_chart(lifetime_production, config={'displayModeBar': False})
+    st.plotly_chart(lifetime_production)
     st.write("")
     st.write("")
     st.write("")
