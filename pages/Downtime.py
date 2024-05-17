@@ -1,35 +1,63 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+from supabase import create_client, Client
 
 st.set_page_config(layout="wide", initial_sidebar_state="expanded", menu_items=None)
 
-@st.cache_data(show_spinner=False)
+@st.cache_resource
+def init_supabase_connection():
+    url = st.secrets["connections"]["supabase"]["SUPABASE_URL"]
+    key = st.secrets["connections"]["supabase"]["SUPABASE_KEY"]
+    return create_client(url, key)
+
+supabase = init_supabase_connection()
+
+@st.cache_data(ttl=600, show_spinner=False)
 def load_data():
+    tables = {
+        "Braner Maintenance Related Downtime": ("Braner", "Maintenance Related"),
+        "Braner Non-Maintenance Related Downtime": ("Braner", "Non-Maintenance Related"),
+        "Red Bud Maintenance Related Downtime": ("Red Bud", "Maintenance Related"),
+        "Red Bud Non-Maintenance Related Downtime": ("Red Bud", "Non-Maintenance Related"),
+        "Stamco Maintenance Related Downtime": ("Stamco", "Maintenance Related"),
+        "Stamco Non-Maintenance Related Downtime": ("Stamco", "Non-Maintenance Related")
+    }
+    
     data_frames = []
-    lines = ['stamco', 'redbud', 'braner']
-    types = ['mr', 'nmr']
-    for line in lines:
-        for dtype in types:
-            temp_df = pd.read_csv(f'data/downtime/{line}/{line}_{dtype}.csv')
-            category_col = 'MAINTENANCE RELATED' if dtype == 'mr' else 'NON MAINTENANCE RELATED'
-            temp_df = temp_df.rename(columns={category_col: 'Category'})
-            temp_df = temp_df[temp_df['Category'] != 'TOTALS']
-            temp_df['Line'] = line.capitalize()
-            temp_df['Maintenance Status'] = 'Maintenance Related' if dtype == 'mr' else 'Non-Maintenance Related'
-            data_frames.append(temp_df)
-    combined_data = pd.concat(data_frames, ignore_index=True)
-    return combined_data
+    
+    for table_name, (line, category) in tables.items():
+        try:
+            response = supabase.table(table_name).select("*").execute()
+            if response.data:
+                temp_df = pd.DataFrame(response.data)
+                temp_df['Line'] = line
+                temp_df['Category'] = category
+                data_frames.append(temp_df)
+            else:
+                st.write(f"No data found for table: {table_name}")
+        except Exception as e:
+            st.error(f"An error occurred while fetching data from {table_name}: {e}")
+    
+    if data_frames:
+        combined_data = pd.concat(data_frames, ignore_index=True)
+        return combined_data
+    else:
+        return pd.DataFrame()
 
 def main():
-    st.header("Downtime Analysis by Production Line")
+    st.header("Downtime Treemap")
     combined_data = load_data()
 
-    line_options = ['All Lines', 'Stamco', 'Redbud', 'Braner']
+    if combined_data.empty:
+        st.error("No data available.")
+        return
+
+    line_options = ['All Lines', 'Stamco', 'Red Bud', 'Braner']
     selected_line = st.selectbox("Select the production line to display:", line_options, key="line_select")
 
-    months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUNE', 'JULY', 'AUG', 'SEPT', 'OCT', 'NOV', 'DEC']
-    selected_months = st.multiselect('Select months for the treemap:', months, default=['JAN', 'FEB', 'MAR', 'APR'], key="month_select")
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    selected_months = st.multiselect('Select months for the treemap:', months, default=['January', 'February', 'March', 'April'], key="month_select")
 
     color_scale = px.colors.sequential.RdBu_r
 
@@ -41,7 +69,7 @@ def main():
     for month in selected_months:
         if month not in filtered_data.columns:
             continue
-        month_data = filtered_data.melt(id_vars=['Category', 'Line', 'Maintenance Status'], value_vars=[month],
+        month_data = filtered_data.melt(id_vars=['Reason', 'Category', 'Line'], value_vars=[month],
                                         var_name='Month', value_name='Downtime')
         month_data = month_data[month_data['Downtime'] != 0]  # Filter out zero downtime entries
 
@@ -49,7 +77,7 @@ def main():
             st.write(f"No downtime data available for {month}.")
             continue
 
-        fig_treemap = px.treemap(month_data, path=['Line', 'Maintenance Status', 'Category'] if selected_line == 'All Lines' else ['Maintenance Status', 'Category'],
+        fig_treemap = px.treemap(month_data, path=['Line', 'Category', 'Reason'] if selected_line == 'All Lines' else ['Category', 'Reason'],
                                  values='Downtime', title=f"{month} Downtime - {selected_line}",
                                  color='Downtime', color_continuous_scale=color_scale)
         fig_treemap.update_layout(margin=dict(t=50, l=25, r=25, b=25), plot_bgcolor='rgba(0,0,0,0)')
