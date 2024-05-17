@@ -1,14 +1,24 @@
+# streamlit_app.py
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 from sharepoint_manager import authenticate_user
 import streamlit_shadcn_ui as ui
+from supabase import create_client, Client
 
-# App Layout
-st.set_page_config(
-    page_title="KPI • Production",
-    page_icon="assets/MSP_Favicon.png",
-)
+# Cached connection to Supabase
+@st.cache_resource
+def init_connection():
+    url = st.secrets["connections"]["supabase"]["SUPABASE_URL"]
+    key = st.secrets["connections"]["supabase"]["SUPABASE_KEY"]
+    return create_client(url, key)
+
+supabase: Client = init_connection()
+
+# Function to fetch data from Supabase
+def fetch_data(table_name):
+    response = supabase.table(table_name).select("*").execute()
+    return pd.DataFrame(response.data)
 
 # Check if the user is already authenticated
 if 'authenticated' not in st.session_state or not st.session_state['authenticated']:
@@ -23,11 +33,11 @@ if 'authenticated' not in st.session_state or not st.session_state['authenticate
 if st.session_state['authenticated']:
     st.title("Production")
 
-    # Read CSV files
-    df_lifetime = pd.read_csv("data/production/lifetime.csv")
-    df_stamco_tonnage = pd.read_csv("data/production/stamco.csv")
-    df_braner_tonnage = pd.read_csv("data/production/braner.csv")
-    df_redbud_tonnage = pd.read_csv("data/production/redbud.csv")
+    # Fetch data from Supabase tables
+    df_lifetime = fetch_data("Lifetime Production")
+    df_stamco_tonnage = fetch_data("Stamco Production")
+    df_braner_tonnage = fetch_data("Braner Production")
+    df_redbud_tonnage = fetch_data("Red Bud Production")
 
     # Unique years for dropdown options based on lifetime data
     unique_years_lifetime = pd.to_datetime(df_lifetime["Month"]).dt.year.unique()
@@ -56,7 +66,7 @@ if st.session_state['authenticated']:
 
     # Lifetime Production Chart
     lifetime_production = px.line(filtered_lifetime, x="Month", y="Tons", title="Lifetime Tonnage")
-    lifetime_production.update_layout(yaxis_title="Tons",xaxis=dict(dtick="6"),xaxis_tickangle=45)
+    lifetime_production.update_layout(yaxis_title="Tons", xaxis=dict(dtick="6"), xaxis_tickangle=45)
     st.plotly_chart(lifetime_production)
     st.write("")
     st.write("")
@@ -78,7 +88,7 @@ if st.session_state['authenticated']:
 
     # Stamco Production Chart
     stamco_production = px.line(filtered_stamco, x="Month", y=["1st", "2nd", "3rd"], title="Stamco Production")
-    stamco_production.update_layout(yaxis_title="TPH",xaxis=dict(dtick="3"),xaxis_tickangle=45)
+    stamco_production.update_layout(yaxis_title="TPH", xaxis=dict(dtick="3"), xaxis_tickangle=45)
 
     # Render Stamco production chart
     st.plotly_chart(stamco_production)
@@ -102,7 +112,7 @@ if st.session_state['authenticated']:
 
     # Braner Production Chart
     braner_production = px.line(filtered_braner, x="Month", y=["1st", "2nd"], title="Braner Production")
-    braner_production.update_layout(yaxis_title="TPH",xaxis=dict(dtick="3"),xaxis_tickangle=45)
+    braner_production.update_layout(yaxis_title="TPH", xaxis=dict(dtick="3"), xaxis_tickangle=45)
 
     # Render Braner production chart
     st.plotly_chart(braner_production)
@@ -126,7 +136,7 @@ if st.session_state['authenticated']:
 
     # Redbud Production Chart
     redbud_production = px.line(filtered_redbud, x="Month", y=["1st", "2nd", "3rd"], title="Redbud Production")
-    redbud_production.update_layout(yaxis_title="TPH",xaxis=dict(dtick="3"),xaxis_tickangle=45)
+    redbud_production.update_layout(yaxis_title="TPH", xaxis=dict(dtick="3"), xaxis_tickangle=45)
 
     # Render Redbud production chart
     st.plotly_chart(redbud_production)

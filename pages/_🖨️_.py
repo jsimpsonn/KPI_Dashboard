@@ -258,37 +258,37 @@ if st.session_state['authenticated']:
             st.plotly_chart(otd_chart, use_container_width=True)
 
     # Shipping Chart in the second column container
-    shipping_container = row4[1].container(border=True)
-    with shipping_container:
-        shipping_data = get_sharepoint_list_items(
-            sharepoint_urls["Plant Operations"],
-            sharepoint_lists["Loading Times"],
-            read_secrets()["client_id"],
-            read_secrets()["client_secret"]
-        )
-        if shipping_data:
-            df_shipping = pd.DataFrame({
-                "Date": [x.properties.get("Date") for x in shipping_data],
-                "Percent": [x.properties.get("OData__x0025_") * 100 for x in shipping_data]
-            })
-            df_shipping['Date'] = pd.to_datetime(df_shipping['Date'])
-            df_shipping = df_shipping.sort_values(by='Date', ascending=True)
-            df_shipping['Date'] = pd.to_datetime(df_shipping['Date']).dt.strftime('%B %Y')
-            shipping_chart = px.line(df_shipping, x="Date", y="Percent", title="Shipping - Trucks Loaded in One Hour or Less")
-            shipping_chart.update_layout(xaxis=dict(dtick="3"))
-            shipping_chart.add_hrect(y0=75, y1=100, fillcolor='green', opacity=0.1, annotation_text='Goal = 75%', annotation_position='top left', annotation_font_size=14, annotation_font_color="black")
-            shipping_chart.add_hrect(y0=50, y1=75, fillcolor='red', opacity=0.1)
-            st.plotly_chart(shipping_chart, use_container_width=True)
+    ########shipping_container = row4[1].container(border=True)
+    ########with shipping_container:
+        ########shipping_data = get_sharepoint_list_items(
+           ######## sharepoint_urls["Plant Operations"],
+           ######## sharepoint_lists["Loading Times"],
+          ########  read_secrets()["client_id"],
+           ######## read_secrets()["client_secret"]
+      ########  )
+      ########  if shipping_data:
+      ########      df_shipping = pd.DataFrame({
+       ########         "Date": [x.properties.get("Date") for x in shipping_data],
+       ########         "Percent": [x.properties.get("OData__x0025_") * 100 for x in shipping_data]
+       ########     })
+        ########    df_shipping['Date'] = pd.to_datetime(df_shipping['Date'])
+        ########    df_shipping = df_shipping.sort_values(by='Date', ascending=True)
+       ########     df_shipping['Date'] = pd.to_datetime(df_shipping['Date']).dt.strftime('%B %Y')
+         ########   shipping_chart = px.line(df_shipping, x="Date", y="Percent", title="Shipping - Trucks Loaded in One Hour or Less")
+        ########    shipping_chart.update_layout(xaxis=dict(dtick="3"))
+        ########    shipping_chart.add_hrect(y0=75, y1=100, fillcolor='green', opacity=0.1, annotation_text='Goal = 75%', annotation_position='top left', annotation_font_size=14, annotation_font_color="black")
+         ########   shipping_chart.add_hrect(y0=50, y1=75, fillcolor='red', opacity=0.1)
+         ########   st.plotly_chart(shipping_chart, use_container_width=True)
 
     ######## Safety
-    shipping_container = row4[2].container(border=False)
-    with shipping_container:
-        df_safety = pd.read_csv("data/safety.csv")
-        df_safety['Date'] = pd.to_datetime(df_safety['Date'])
-        df_safety['Date'] = df_safety['Date'].dt.strftime('%m/%d/%Y')
-        df_safety['Year'] = df_safety['Date'].str[-4:]
-        df_grouped_recordable = df_safety[df_safety['Recordable'] == 'Y'].groupby('Year').size().reset_index(name='Recordables')
-        df_grouped_total = df_safety.groupby('Year').size().reset_index(name='Total Incidents')
-        df_combined = df_grouped_total.merge(df_grouped_recordable, how='left', on='Year').fillna(0)
-        st.subheader("Safety")
-        st.dataframe(df_combined.set_index('Year'), use_container_width=True)
+    ########shipping_container = row4[2].container(border=False)
+   ######## with shipping_container:
+       ######## df_safety = pd.read_csv("data/safety.csv")
+       ######## df_safety['Date'] = pd.to_datetime(df_safety['Date'])
+       ######## df_safety['Date'] = df_safety['Date'].dt.strftime('%m/%d/%Y')
+      ########  df_safety['Year'] = df_safety['Date'].str[-4:]
+       ######## df_grouped_recordable = df_safety[df_safety['Recordable'] == 'Y'].groupby('Year').size().reset_index(name='Recordables')
+       ######## df_grouped_total = df_safety.groupby('Year').size().reset_index(name='Total Incidents')
+       ######## df_combined = df_grouped_total.merge(df_grouped_recordable, how='left', on='Year').fillna(0)
+       ######## st.subheader("Safety")
+      ########  st.dataframe(df_combined.set_index('Year'), use_container_width=True)
