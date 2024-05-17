@@ -3,11 +3,9 @@ import pandas as pd
 import plotly.express as px
 from sharepoint_manager import authenticate_user
 import streamlit_shadcn_ui as ui
-from st_pages import show_pages_from_config, hide_pages
 
 st.set_page_config(page_title="KPI • Safety", page_icon="assets/MSP_Favicon.png", layout="wide", initial_sidebar_state="auto", menu_items=None)
-show_pages_from_config()
-hide_pages("Print Summary")
+
 # Check if the user is already authenticated
 if 'authenticated' not in st.session_state or not st.session_state['authenticated']:
     access_token = authenticate_user()

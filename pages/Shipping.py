@@ -4,16 +4,12 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import streamlit_shadcn_ui as ui
-from st_pages import show_pages_from_config, hide_pages
 
 # App Layout
 st.set_page_config(
     page_title="KPI • Shipping",
     page_icon="assets/MSP_Favicon.png",
 )
-
-show_pages_from_config()
-hide_pages("Print Summary")
 
 # Check if the user is already authenticated
 if 'authenticated' not in st.session_state or not st.session_state['authenticated']:

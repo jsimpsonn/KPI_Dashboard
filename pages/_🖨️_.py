@@ -6,11 +6,8 @@ import plotly.graph_objs as go
 import pandas as pd
 import streamlit_shadcn_ui as ui
 import datetime
-from st_pages import show_pages_from_config, hide_pages
 
-st.set_page_config(page_title="Print",layout="wide", page_icon="assets/MSP_Favicon.png")
-show_pages_from_config()
-hide_pages("Print Summary")
+st.set_page_config(page_title="Print", layout="wide", page_icon="assets/MSP_Favicon.png")
 
 if 'authenticated' not in st.session_state or not st.session_state['authenticated']:
     access_token = authenticate_user()
@@ -23,63 +20,64 @@ if 'authenticated' not in st.session_state or not st.session_state['authenticate
 
 if st.session_state['authenticated']:
     st.markdown(
-    """
-    <style>
-    @media print {
-        @page {
-            size: landscape;
-            margin: 0;
+        """
+        <style>
+        @media print {
+            @page {
+                size: landscape;
+                margin: 0;
+            }
+            body {
+                -webkit-print-color-adjust: exact;
+                margin-left: -50px;
+                padding-top: 25px;
+                padding-left: 55px;
+            }
+            .reportview-container .main .block-container {
+                max-width: 100%;
+                padding-right: 10px;
+                padding-left: 10px;
+            }
+            .element-container {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .stChart, .stDataFrame, .stTable {
+                width: 100% !important;
+            }
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(2) {
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-left: 0px;
+            padding-top: 0px;
+            padding-right: 0px;
+            padding-left: 0px;
+            }
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.st-emotion-cache-vk3wp9.eczjsme11 {
+            display: none;
+            }
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(4) {
+            padding-top: 0px;
+            }
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(5), #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(6) {
+            padding-top: 50px;
+            }
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(6) {
+            padding-top: 30px;
+            }
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 {
+            padding-bottom: 100px;
+            }
         }
-        body {
-            -webkit-print-color-adjust: exact;
-            margin-left: -50px;
-            padding-top: 25px;
-            padding-left: 55px;
-        }
-        .reportview-container .main .block-container {
-            max-width: 100%;
-            padding-right: 10px;
-            padding-left: 10px;
-        }
-        .element-container {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        .stChart, .stDataFrame, .stTable {
-            width: 100% !important;
-        }
-        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(2) {
-        margin-top: 0px;
-        margin-right: 0px;
-        margin-left: 0px;
-        padding-top: 0px;
-        padding-right: 0px;
-        padding-left: 0px;
-        }
-        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.st-emotion-cache-vk3wp9.eczjsme11 {
-        display: none;
-        }
-        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(4) {
-        padding-top: 0px;
-        }
-        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(5), #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(6) {
-        padding-top: 50px;
-        }
-        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(6) {
-        padding-top: 30px;
-        }
-        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 {
-        padding-bottom: 100px;
-        }
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+    
     today_date = datetime.datetime.now().strftime('%m/%d/%Y')
     st.header(f"KPI Summary - {today_date}", divider='orange')
 
-    row1 = st.columns([2,1])
+    row1 = st.columns([2, 1])
     row2 = st.columns(3)
     row3 = st.columns(2)
     row4 = st.columns(3)
@@ -101,7 +99,7 @@ if st.session_state['authenticated']:
             })
             df_lead_times['Date'] = pd.to_datetime(df_lead_times['Date']).dt.strftime('%m/%d/%Y')
             lead_times_chart = px.line(df_lead_times, x="Date", y=["Braner", "Stamco", "Red Bud"], labels={"value": "Lead Time (days)"})
-            lead_times_chart.update_layout(xaxis=dict(dtick="14"),xaxis_tickangle=45)
+            lead_times_chart.update_layout(xaxis=dict(dtick="14"), xaxis_tickangle=45)
             st.plotly_chart(lead_times_chart, use_container_width=True)
 
     equipment_status_container = row1[1].container(border=False)
@@ -118,10 +116,26 @@ if st.session_state['authenticated']:
     with stamco_production_container:
         df_stamco_tonnage = pd.read_csv("data/production/stamco.csv")
         stamco_production = px.line(df_stamco_tonnage, x="Month", y=["1st", "2nd", "3rd"], title="Stamco Production")
-        stamco_production.update_layout(yaxis_title="TPH",xaxis=dict(dtick="3"),xaxis_tickangle=45)
-        stamco_production.add_hrect(y0=10,y1=15, fillcolor="green", opacity=0.1, annotation_text="Goal = 10 TPH", annotation_position="top left",annotation_font_size=14, annotation_font_color="black")
-        stamco_production.add_hrect(y0=0,y1=10, fillcolor="red", opacity=0.1)
+        stamco_production.update_layout(yaxis_title="TPH", xaxis=dict(dtick="3"), xaxis_tickangle=45)
+        stamco_production.add_hrect(y0=10, y1=15, fillcolor="green", opacity=0.1, annotation_text="Goal = 10 TPH", annotation_position="top left", annotation_font_size=14, annotation_font_color="black")
+        stamco_production.add_hrect(y0=0, y1=10, fillcolor="red", opacity=0.1)
+
+        # Add the latest values as annotations under the legend
+        latest_values = df_stamco_tonnage.iloc[-1]
+        y_offset = 20  # Initial vertical offset
+        for i, shift in enumerate(["1st", "2nd", "3rd"]):
+            stamco_production.add_annotation(
+                x=latest_values["Month"],
+                y=latest_values[shift],
+                text=f"{shift}: {latest_values[shift]} TPH",
+                showarrow=False,
+                xshift=10,
+                yshift=-(y_offset + i * 20)  # Adjust yshift for each shift
+            )
+
         st.plotly_chart(stamco_production, use_container_width=True)
+
+
 
     braner_production_container = row2[1].container(border=True)
     with braner_production_container:
