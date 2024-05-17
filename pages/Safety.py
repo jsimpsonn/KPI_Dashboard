@@ -4,6 +4,12 @@ import plotly.express as px
 from sharepoint_manager import authenticate_user
 from supabase import create_client
 
+st.set_page_config(
+    page_title="KPI • Safety",
+    page_icon="assets/MSP_Favicon.png",
+    layout="wide"
+)
+
 @st.cache_resource
 def init_connection():
     url = st.secrets["connections"]["supabase"]["SUPABASE_URL"]
