@@ -5,3 +5,5 @@ plotly
 office365-REST-Python-Client
 streamlit_shadcn_ui
 st_pages
+st-supabase-connection
+supabase
