@@ -58,7 +58,7 @@ if st.session_state['authenticated']:
     df_safety['Date'] = df_safety['Date'].dt.strftime('%m/%d/%Y')
 
     df_safety['Year'] = df_safety['Date'].str[-4:]
-    df_grouped_recordable = df_safety[df_safety['Recordable'] == 'Y'].groupby('Year').size().reset_index(name='Recordables')
+    df_grouped_recordable = df_safety[df_safety['Recordable'] == True].groupby('Year').size().reset_index(name='Recordables')
     df_grouped_total = df_safety.groupby('Year').size().reset_index(name='Total Incidents')
     df_combined = df_grouped_total.merge(df_grouped_recordable, how='left', on='Year').fillna(0)
 
