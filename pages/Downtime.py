@@ -57,7 +57,7 @@ def main():
     selected_line = st.selectbox("Select the production line to display:", line_options, key="line_select")
 
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    selected_months = st.multiselect('Select months for the treemap:', months, default=['January', 'February', 'March', 'April'], key="month_select")
+    selected_months = st.multiselect('Select months for the treemap:', months, default=['May'], key="month_select")
 
     color_scale = px.colors.sequential.RdBu_r
 
