@@ -201,9 +201,9 @@ if st.session_state['authenticated']:
         xaxis_tickangle=45
     )
 
-    maint_related = row3[0].container(border=True)
-    with maint_related:
-        st.plotly_chart(mr_fig, use_container_width=True)
+    #maint_related = row3[0].container(border=True)
+    #with maint_related:
+        #st.plotly_chart(mr_fig, use_container_width=True)
 
     # Create a chart for NMR downtime
     nmr_fig = go.Figure()
@@ -233,9 +233,9 @@ if st.session_state['authenticated']:
         xaxis_tickangle=45
     )
 
-    nonmaint_related = row3[1].container(border=True)
-    with nonmaint_related:
-        st.plotly_chart(nmr_fig, use_container_width=True)
+    #nonmaint_related = row3[1].container(border=True)
+    #with nonmaint_related:
+        #st.plotly_chart(nmr_fig, use_container_width=True)
 
     # OTD Chart in the first column container
     otd_container = row4[0].container(border=True)
